@@ -5,3 +5,5 @@
 *.iml
 *.ipr
 *.iws
+resources/StoredCredential
+KYS Credentials.json
