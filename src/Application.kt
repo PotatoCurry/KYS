@@ -56,8 +56,8 @@ fun Application.module(testing: Boolean = false) {
             }
         }
 
-        get("/html-freemarker") {
-            call.respond(FreeMarkerContent("index.ftl", mapOf("data" to IndexData(listOf(1, 2, 3))), ""))
+        get("/query") {
+            call.respond(FreeMarkerContent("query.ftl", mapOf("data" to IndexData(listOf(1, 2, 3))), ""))
         }
 
         // Static feature. Try to access `/static/ktor_logo.svg`
