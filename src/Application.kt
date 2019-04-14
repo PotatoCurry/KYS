@@ -42,6 +42,21 @@ fun Application.module(testing: Boolean = false) {
             }
         }
 
+        get("/query") {
+            //call.respond(FreeMarkerContent("query.ftl", mapOf("number" to ), ""))
+        }
+
+        get("/query/{number}") {
+            SheetReader.refreshData()
+            val student = Students.get(call.parameters["number"]!!.toInt())
+            call.respondHtml {
+                body {
+                    h1 { +"${student.firstName} ${student.lastName}" }
+
+                }
+            }
+        }
+
         get("/styles.css") {
             call.respondCss {
                 body {
@@ -56,12 +71,7 @@ fun Application.module(testing: Boolean = false) {
             }
         }
 
-        get("/query") {
-            call.respond(FreeMarkerContent("query.ftl", mapOf("data" to IndexData(listOf(1, 2, 3))), ""))
-        }
-
-        // Static feature. Try to access `/static/ktor_logo.svg`
-        static("/static") {
+        static("/") {
             resources("static")
         }
     }
