@@ -1,31 +1,33 @@
 package io.github.potatocurry
 
-import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.routing.*
-import io.ktor.http.*
-import io.ktor.html.*
-import kotlinx.html.*
+import SheetReader
+import Students
+import io.ktor.application.Application
+import io.ktor.application.ApplicationCall
+import io.ktor.application.call
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.apache.Apache
+import io.ktor.html.respondHtml
+import io.ktor.http.ContentType
+import io.ktor.http.content.resources
+import io.ktor.http.content.static
+import io.ktor.response.respondText
+import io.ktor.routing.get
+import io.ktor.routing.routing
 import kotlinx.css.*
-import freemarker.cache.*
-import io.ktor.freemarker.*
-import io.ktor.http.content.*
-import io.ktor.client.*
-import io.ktor.client.engine.apache.*
+import kotlinx.html.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
-@Suppress("unused") // Referenced in application.conf
-@kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
-    install(FreeMarker) {
-        templateLoader = ClassTemplateLoader(this::class.java.classLoader, "templates")
-    }
-
+fun Application.module() {
     val client = HttpClient(Apache) {
     }
 
     routing {
+        static("/") {
+            resources("static")
+        }
+
         get("/") {
             call.respondHtml {
                 body {
@@ -40,8 +42,7 @@ fun Application.module(testing: Boolean = false) {
         }
 
         get("/query") {
-            call.respondText("Go to /query/{number}")
-            //call.respond(FreeMarkerContent("query.ftl", mapOf("number" to ), ""))
+            call.respondText("Go to /query/{number}", ContentType.Text.Plain)
         }
 
         get("/query/{number}") {
@@ -81,14 +82,8 @@ fun Application.module(testing: Boolean = false) {
                 }
             }
         }
-
-        static("/") {
-            resources("static")
-        }
     }
 }
-
-data class IndexData(val items: List<Int>)
 
 fun FlowOrMetaDataContent.styleCss(builder: CSSBuilder.() -> Unit) {
     style(type = ContentType.Text.CSS.toString()) {
