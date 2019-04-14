@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Major+Mono+Display');
+
+* {
+  box-sizing: border-box;
+}
+body {
+  height: 100%;
+  margin: 0;
+  background: #F5F5F4;
+  font-size: 28px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.header {
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+  font-family: 'Major Mono Display','Open Sans', sans-serif;
+  font-size: 25px;
+}
+
+#navbar {
+  overflow: hidden;
+  background-color: #333;
+  font-family: 'Major Mono Display','Open Sans', sans-serif;
+  width: 80%;
+}
+
+#navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+#navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+#navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.content {
+  padding: 16px;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
