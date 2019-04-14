@@ -7,3 +7,4 @@
 *.iws
 resources/KYS_Credentials.json
 resources/StoredCredential
+resources/credentials.tar
