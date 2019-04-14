@@ -1,3 +1,5 @@
+package io.github.potatocurry
+
 class VolunteerActivity(
     val agency: String,
     val startDate: String,

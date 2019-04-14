@@ -1,3 +1,5 @@
+package io.github.potatocurry
+
 import kotlin.collections.HashMap
 
 object Students {
