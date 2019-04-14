@@ -43,7 +43,7 @@ fun Application.module() {
                 call.respondText("Error parsing ID $number.", ContentType.Text.Plain)
                 return@get
             }
-            val student = Students.get(number.toInt())
+            val student = Students[number.toInt()]
             if (student == null) {
                 call.respondText("The specified student with ID $number was not found.", ContentType.Text.Plain)
             } else {

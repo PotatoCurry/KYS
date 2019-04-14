@@ -70,7 +70,7 @@ public class SheetReader {
         if (values == null || values.isEmpty()) {
             System.err.println("Unable to retrieve data");
         } else {
-            Students.initialize();
+            Students.INSTANCE.initialize();
             for (List row : values) {
                 try {
                     int number = (Integer.parseInt(row.get(0).toString()) - 2424) / 5;
@@ -98,13 +98,13 @@ public class SheetReader {
                         description = "";
                     }
 
-                    if (!Students.exists(number)) {
+                    if (!Students.INSTANCE.exists(number)) {
                         String firstName = row.get(1).toString();
                         String lastName = row.get(2).toString();
                         int gradClass = Integer.parseInt(row.get(3).toString());
-                        Students.add(number, new Student(firstName, lastName, gradClass));
+                        Students.INSTANCE.add(number, new Student(firstName, lastName, gradClass));
                     }
-                    Students.get(number).enterActivity(new VolunteerActivity(agency, startDate, endDate, hours + extraHours, summer, description));
+                    Students.INSTANCE.get(number).enterActivity(new VolunteerActivity(agency, startDate, endDate, hours + extraHours, summer, description));
                 } catch (Exception e) {
                     e.printStackTrace();
                     System.err.println("This is the fucking problem child: " + row);
