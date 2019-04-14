@@ -12,14 +12,14 @@ import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
-import java.io.*;
+import java.io.FileReader;
+import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
-// Adapted from Google Sheets API Java Quickstart
 public class SheetReader {
+
     private static final String APPLICATION_NAME = "Kotlin YES System";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "resources";
@@ -112,4 +112,5 @@ public class SheetReader {
             }
         }
     }
+
 }

@@ -20,7 +20,7 @@ import kotlinx.html.*
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 fun Application.module() {
-    val client = HttpClient(Apache) {
+    HttpClient(Apache) {
     }
 
     routing {
