@@ -30,7 +30,7 @@ public class SheetReader {
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
-    private static final String CREDENTIALS_FILE_PATH = "/KYS Credentials.json";
+    private static final String CREDENTIALS_FILE_PATH = "/KYS_Credentials.json";
 
     /**
      * Creates an authorized Credential object.
