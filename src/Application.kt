@@ -2,7 +2,6 @@ package io.github.potatocurry
 
 import io.ktor.application.*
 import io.ktor.response.*
-import io.ktor.request.*
 import io.ktor.routing.*
 import io.ktor.http.*
 import io.ktor.html.*
@@ -10,12 +9,9 @@ import kotlinx.html.*
 import kotlinx.css.*
 import freemarker.cache.*
 import io.ktor.freemarker.*
-import io.ktor.content.*
 import io.ktor.http.content.*
-import io.ktor.features.*
 import io.ktor.client.*
 import io.ktor.client.engine.apache.*
-import java.lang.IllegalStateException
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -58,7 +54,7 @@ fun Application.module(testing: Boolean = false) {
                     body {
                         h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
                         h2 { +"Volunteering Records" }
-                        for (va in student.activites) {
+                        for (va in student.activities) {
                             if (va.endDate == "")
                                 h3 { +"${va.agency}: ${va.startDate}" }
                             else

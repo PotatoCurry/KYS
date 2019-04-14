@@ -31,7 +31,7 @@ public class Student {
         return gradClass;
     }
 
-    public List<VolunteerActivity> getActivites() {
+    public List<VolunteerActivity> getActivities() {
         return activities;
     }
 }
