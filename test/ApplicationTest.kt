@@ -18,6 +18,10 @@ class ApplicationTest {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertNotEquals("The specified student with number 625783 was not found.", response.content)
             }
+            handleRequest(HttpMethod.Get, "/query/000000").apply {
+                assertEquals(HttpStatusCode.OK, response.status())
+                assertEquals("The specified student with number 000000 was not found.", response.content)
+            }
         }
     }
 }
