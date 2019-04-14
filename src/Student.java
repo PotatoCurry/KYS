@@ -34,4 +34,11 @@ public class Student {
     public List<VolunteerActivity> getActivities() {
         return activities;
     }
+
+    public double getTotalHours() {
+        double hours = 0;
+        for (VolunteerActivity va : activities)
+            hours += va.getHours();
+        return hours;
+    }
 }
