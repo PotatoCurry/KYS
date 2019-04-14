@@ -9,6 +9,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.apache.Apache
 import io.ktor.html.respondHtml
 import io.ktor.http.ContentType
+import io.ktor.http.content.resource
 import io.ktor.http.content.resources
 import io.ktor.http.content.static
 import io.ktor.response.respondText
@@ -21,25 +22,12 @@ import java.lang.NumberFormatException
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 fun Application.module() {
-    HttpClient(Apache) {
-    }
+    HttpClient(Apache)
 
     routing {
         static("/") {
             resources("static")
-        }
-
-        get("/") {
-            call.respondHtml {
-                body {
-                    h1 { +"Clements YES Program" }
-                    div("info") {
-                        p {
-                            strong { +"WE HAVE TEMPORALLY DISABLED THE YES HOUR QUERY. IF YOU WANT TO FIND OUT HOW MANY YES HOURS YOU HAVE PLEASE EMAIL US AT CLEMENTSYES@GMAIL.COM." }
-                        }
-                    }
-                }
-            }
+            resource("/", "static/index.html")
         }
 
         get("/query") {
@@ -55,7 +43,7 @@ fun Application.module() {
                 call.respondText("Error parsing ID $number.", ContentType.Text.Plain)
                 return@get
             }
-            val student = Students.get(number!!.toInt())
+            val student = Students.get(number.toInt())
             if (student == null) {
                 call.respondText("The specified student with ID $number was not found.", ContentType.Text.Plain)
             } else {
@@ -91,16 +79,6 @@ fun Application.module() {
             }
         }
     }
-}
-
-fun FlowOrMetaDataContent.styleCss(builder: CSSBuilder.() -> Unit) {
-    style(type = ContentType.Text.CSS.toString()) {
-        +CSSBuilder().apply(builder).toString()
-    }
-}
-
-fun CommonAttributeGroupFacade.style(builder: CSSBuilder.() -> Unit) {
-    this.style = CSSBuilder().apply(builder).toString().trim()
 }
 
 suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {
