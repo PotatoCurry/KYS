@@ -15,6 +15,7 @@ import io.ktor.http.content.*
 import io.ktor.features.*
 import io.ktor.client.*
 import io.ktor.client.engine.apache.*
+import java.lang.IllegalStateException
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -43,16 +44,29 @@ fun Application.module(testing: Boolean = false) {
         }
 
         get("/query") {
+            call.respondText("Go to /query/{number}")
             //call.respond(FreeMarkerContent("query.ftl", mapOf("number" to ), ""))
         }
 
         get("/query/{number}") {
             SheetReader.refreshData()
-            val student = Students.get(call.parameters["number"]!!.toInt())
-            call.respondHtml {
-                body {
-                    h1 { +"${student.firstName} ${student.lastName}" }
-
+            val student = Students.get(call.parameters["number"]?.toInt()!!)
+            if (student == null) {
+                call.respondText("The specified student with number ${call.parameters["number"]} was not found.")
+            } else {
+                call.respondHtml {
+                    body {
+                        h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
+                        h2 { +"Volunteering Records" }
+                        for (va in student.activites) {
+                            if (va.endDate == "")
+                                h3 { +"${va.agency}: ${va.startDate}" }
+                            else
+                                h3 { +"${va.agency}: ${va.startDate} - ${va.endDate}" }
+                            p { +"${va.hours} hours" }
+                            p { +va.description }
+                        }
+                    }
                 }
             }
         }

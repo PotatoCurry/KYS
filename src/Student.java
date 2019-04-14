@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Student {
 
     private String firstName;
     private String lastName;
     private int gradClass;
-    private ArrayList<VolunteerActivity> activities;
+    private List<VolunteerActivity> activities;
 
     public Student(String fn, String ln, int c) {
         firstName = fn;
@@ -28,5 +29,9 @@ public class Student {
 
     public int getGradClass() {
         return gradClass;
+    }
+
+    public List<VolunteerActivity> getActivites() {
+        return activities;
     }
 }
