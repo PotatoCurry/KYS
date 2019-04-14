@@ -17,11 +17,15 @@ class ApplicationTest {
             }
             handleRequest(HttpMethod.Get, "/query/625783").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertNotEquals("The specified student with number 625783 was not found.", response.content)
+                assertNotEquals("The specified student with ID 625783 was not found.", response.content)
             }
             handleRequest(HttpMethod.Get, "/query/000000").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("The specified student with number 000000 was not found.", response.content)
+                assertEquals("The specified student with ID 000000 was not found.", response.content)
+            }
+            handleRequest(HttpMethod.Get, "/query/abc").apply {
+                assertEquals(HttpStatusCode.OK, response.status())
+                assertEquals("Error parsing ID abc.", response.content)
             }
         }
     }
