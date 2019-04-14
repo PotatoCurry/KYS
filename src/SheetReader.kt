@@ -12,7 +12,6 @@ import com.google.api.services.sheets.v4.SheetsScopes
 import java.io.FileReader
 import java.io.IOException
 import java.security.GeneralSecurityException
-import kotlin.IndexOutOfBoundsException as IndexOutOfBoundsException1
 
 object SheetReader {
     private val JSON_FACTORY = JacksonFactory.getDefaultInstance()
@@ -48,7 +47,7 @@ object SheetReader {
     @Throws(IOException::class, GeneralSecurityException::class)
     fun refreshData() {
         // Build a new authorized API client service.
-        val HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport()
+        val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
         val spreadsheetId: String
         if (System.getenv("KYS_Spreadsheet") == null) {
             System.err.println("KYS_Spreadsheet environmental variable not set")
@@ -56,7 +55,7 @@ object SheetReader {
         } else
             spreadsheetId = System.getenv("KYS_Spreadsheet")
         val range = "Sheet1!A2:K"
-        val service = Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+        val service = Sheets.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport))
             .setApplicationName("Kotlin YES System")
             .build()
         val response = service.spreadsheets().values()
