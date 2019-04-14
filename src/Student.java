@@ -41,4 +41,5 @@ public class Student {
             hours += va.getHours();
         return hours;
     }
+
 }
