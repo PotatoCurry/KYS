@@ -56,7 +56,7 @@ public class SheetReader {
         final String spreadsheetId;
         if (System.getenv("KYS_Spreadsheet") == null) {
             System.err.println("KYS_Spreadsheet environmental variable not set");
-            System.exit(1);
+            return;
         }
         spreadsheetId = System.getenv("KYS_Spreadsheet");
         final String range = "Sheet1!A2:K";

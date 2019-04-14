@@ -16,6 +16,7 @@ import io.ktor.routing.get
 import io.ktor.routing.routing
 import kotlinx.css.*
 import kotlinx.html.*
+import java.lang.NumberFormatException
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -47,14 +48,21 @@ fun Application.module() {
 
         get("/query/{number}") {
             SheetReader.refreshData()
-            val student = Students.get(call.parameters["number"]?.toInt()!!)
+            val number = call.parameters["number"]
+            try {
+                number!!.toInt()
+            } catch (e: NumberFormatException) {
+                call.respondText("Error parsing ID $number.", ContentType.Text.Plain)
+                return@get
+            }
+            val student = Students.get(number!!.toInt())
             if (student == null) {
-                call.respondText("The specified student with number ${call.parameters["number"]} was not found.")
+                call.respondText("The specified student with ID $number was not found.", ContentType.Text.Plain)
             } else {
                 call.respondHtml {
                     body {
                         h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
-                        p { +"You have ${student.totalHours} total hours" }
+                        p { +"You have ${student.totalHours} total hours." }
                         h2 { +"Volunteering Records" }
                         for (va in student.activities) {
                             if (va.endDate == "")
