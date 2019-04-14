@@ -2,7 +2,11 @@ import java.util.HashMap;
 
 public class Students {
 
-    static HashMap<Integer, Student> students = new HashMap<>();
+    static HashMap<Integer, Student> students;
+
+    public static void initialize() {
+        students = new HashMap<>();
+    }
 
     public static boolean exists(int id) {
         return students.containsKey(id);

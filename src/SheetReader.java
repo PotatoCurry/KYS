@@ -70,6 +70,7 @@ public class SheetReader {
         if (values == null || values.isEmpty()) {
             System.err.println("Unable to retrieve data");
         } else {
+            Students.initialize();
             for (List row : values) {
                 try {
                     int number = (Integer.parseInt(row.get(0).toString()) - 2424) / 5;

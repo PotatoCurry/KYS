@@ -45,7 +45,7 @@ fun Application.module(testing: Boolean = false) {
         }
 
         get("/query/{number}") {
-            SheetReader.refreshData() // TODO: Clear out previous data so refreshing it does not duplicate existing data
+            SheetReader.refreshData()
             val student = Students.get(call.parameters["number"]?.toInt()!!)
             if (student == null) {
                 call.respondText("The specified student with number ${call.parameters["number"]} was not found.")
