@@ -47,6 +47,9 @@ fun Application.module() {
                 call.respondText("The specified student with ID $number was not found.", ContentType.Text.Plain)
             } else {
                 call.respondHtml {
+                    head {
+                        title { +"KYS | ${student.firstName} ${student.lastName}" }
+                    }
                     body {
                         h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
                         p { +"You have ${student.totalHours} total hours." }
