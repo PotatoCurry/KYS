@@ -54,7 +54,7 @@ fun Application.module() {
                         h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
                         p { +"You have ${student.totalHours} total hours." }
                         h2 { +"Volunteering Records" }
-                        for (va in student.activities) {
+                        student.activities.forEach { va ->
                             if (va.endDate == "")
                                 h3 { +"${va.agency}: ${va.startDate}" }
                             else

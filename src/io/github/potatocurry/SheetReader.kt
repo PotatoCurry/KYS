@@ -17,25 +17,13 @@ import java.security.GeneralSecurityException
 
 object SheetReader {
     private val JSON_FACTORY = JacksonFactory.getDefaultInstance()
-
-    /**
-     * Global instance of the scopes required by this quickstart.
-     * If modifying these scopes, delete your previously saved tokens/ folder.
-     */
     private val SCOPES = listOf(SheetsScopes.SPREADSHEETS_READONLY)
     private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json"
 
-    /**
-     * Creates an authorized Credential object.
-     * @param HTTP_TRANSPORT The network HTTP Transport.
-     * @return An authorized Credential object.
-     * @throws IOException If the credentials.json file cannot be found.
-     */
+    /** Returns credential object from credential files. */
     @Throws(IOException::class)
     private fun getCredentials(HTTP_TRANSPORT: NetHttpTransport): Credential {
-        // Load client secrets.
         val clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, FileReader(CREDENTIALS_FILE_PATH))
-        // Build flow and trigger user authorization request.
         val flow = GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES
         )
@@ -46,6 +34,7 @@ object SheetReader {
         return AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
     }
 
+    /** Reinitialize database with updated values from spreadsheet. */
     @Throws(IOException::class, GeneralSecurityException::class)
     fun refreshData() {
         // Build a new authorized API client service.
