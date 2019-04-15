@@ -58,51 +58,45 @@ object SheetReader {
         } else {
             Students.clear()
             for (row in values) {
-                try {
-                    val number = (Integer.parseInt(row[0].toString()) - 2424) / 5
-                    val agency = row[4].toString()
-                    val startDate = row[5].toString()
-                    val endDate = row[6].toString()
-                    val hours = try {
-                        java.lang.Double.parseDouble(row[7].toString())
-                    } catch (e: NumberFormatException) {
-                        0.0
-                    }
-                    val summer = row[8].toString() == "SH"
-                    val extraHours = try {
-                        java.lang.Double.parseDouble(row[9].toString())
-                    } catch (e: NumberFormatException) {
-                        0.0
-                    } catch (e: IndexOutOfBoundsException) {
-                        0.0
-                    } // extra hours are added into regular hours
-                    val description = try {
-                        row[10].toString()
-                    } catch (e: IndexOutOfBoundsException) {
-                        ""
-                    }
-
-                    if (!Students.exists(number)) {
-                        val firstName = row[1].toString()
-                        val lastName = row[2].toString()
-                        val gradClass = Integer.parseInt(row[3].toString())
-                        Students.add(number, Student(firstName, lastName, gradClass))
-                    }
-                    Students[number]!!.enterActivity(
-                        VolunteerActivity(
-                            agency,
-                            startDate,
-                            endDate,
-                            hours + extraHours,
-                            summer,
-                            description
-                        )
-                    )
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    System.err.println("This is the fucking problem child: $row")
+                val number = (Integer.parseInt(row[0].toString()) - 2424) / 5
+                val agency = row[4].toString()
+                val startDate = row[5].toString()
+                val endDate = row[6].toString()
+                val hours = try {
+                    java.lang.Double.parseDouble(row[7].toString())
+                } catch (e: NumberFormatException) {
+                    0.0
+                }
+                val summer = row[8].toString() == "SH"
+                val extraHours = try {
+                    java.lang.Double.parseDouble(row[9].toString())
+                } catch (e: NumberFormatException) {
+                    0.0
+                } catch (e: IndexOutOfBoundsException) {
+                    0.0
+                } // extra hours are added into regular hours
+                val description = try {
+                    row[10].toString()
+                } catch (e: IndexOutOfBoundsException) {
+                    ""
                 }
 
+                if (!Students.exists(number)) {
+                    val firstName = row[1].toString()
+                    val lastName = row[2].toString()
+                    val gradClass = Integer.parseInt(row[3].toString())
+                    Students.add(number, Student(firstName, lastName, gradClass))
+                }
+                Students[number]!!.enterActivity(
+                    VolunteerActivity(
+                        agency,
+                        startDate,
+                        endDate,
+                        hours + extraHours,
+                        summer,
+                        description
+                    )
+                )
             }
         }
     }
