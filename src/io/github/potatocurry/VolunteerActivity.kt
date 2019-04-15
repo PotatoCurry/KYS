@@ -1,5 +1,6 @@
 package io.github.potatocurry
 
+/** Holds volunteer activity information. */
 class VolunteerActivity(
     val agency: String,
     val startDate: String,

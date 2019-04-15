@@ -1,5 +1,6 @@
 package io.github.potatocurry
 
+/** Holds student information. */
 class Student(val firstName: String, val lastName: String, val gradClass: Int) {
     val activities: MutableList<VolunteerActivity> = mutableListOf()
 

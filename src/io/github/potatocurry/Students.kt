@@ -2,6 +2,7 @@ package io.github.potatocurry
 
 import kotlin.collections.HashMap
 
+/** Holds students and acts as interface for adding/removing students from database. */
 object Students {
     private var students = HashMap<Int, Student>()
 

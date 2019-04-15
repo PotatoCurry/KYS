@@ -15,6 +15,7 @@ import java.io.FileReader
 import java.io.IOException
 import java.security.GeneralSecurityException
 
+/** Handles scraping student data and putting it in database. */
 object SheetReader {
     private val JSON_FACTORY = JacksonFactory.getDefaultInstance()
     private val SCOPES = listOf(SheetsScopes.SPREADSHEETS_READONLY)
