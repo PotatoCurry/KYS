@@ -18,8 +18,10 @@ import kotlinx.css.*
 import kotlinx.html.*
 import java.lang.NumberFormatException
 
+/** Starts main application server. */
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
+/** Main web server module listening for requests. */
 fun Application.module() {
     HttpClient(Apache)
 
@@ -83,6 +85,7 @@ fun Application.module() {
     }
 }
 
+/** Builds CSS. */
 suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {
     this.respondText(CSSBuilder().apply(builder).toString(), ContentType.Text.CSS)
 }
