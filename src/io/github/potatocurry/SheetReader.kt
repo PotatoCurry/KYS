@@ -21,38 +21,9 @@ object SheetReader {
     private val SCOPES = listOf(SheetsScopes.SPREADSHEETS_READONLY)
     private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json"
 
-    @Throws(IOException::class)
-    private fun getCredentials(HTTP_TRANSPORT: NetHttpTransport): Credential {
-        val clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, FileReader(CREDENTIALS_FILE_PATH))
-        val flow = GoogleAuthorizationCodeFlow.Builder(
-            HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES
-        )
-            .setDataStoreFactory(FileDataStoreFactory(java.io.File("resources")))
-            .setAccessType("offline")
-            .build()
-        val receiver = LocalServerReceiver.Builder().setPort(8888).build()
-        return AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
-    }
-
-    /** Reinitialize database with updated values from spreadsheet. */
-    @Throws(IOException::class, GeneralSecurityException::class)
+    /** Reinitialize database with updated values. */
     fun refreshData() {
-        // Build a new authorized API client service.
-        val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
-        val spreadsheetId: String
-        if (System.getenv("KYS_Spreadsheet") == null) {
-            System.err.println("KYS_Spreadsheet environmental variable not set")
-            return
-        } else
-            spreadsheetId = System.getenv("KYS_Spreadsheet")
-        val range = "Sheet1!A2:K"
-        val service = Sheets.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport))
-            .setApplicationName("Kotlin YES System")
-            .build()
-        val response = service.spreadsheets().values()
-            .get(spreadsheetId, range)
-            .execute()
-        val values = response.getValues()
+        val values = scrapeData()
         if (values == null || values.isEmpty()) {
             System.err.println("Unable to retrieve data")
         } else {
@@ -74,7 +45,7 @@ object SheetReader {
                     0.0
                 } catch (e: IndexOutOfBoundsException) {
                     0.0
-                } // extra hours are added into regular hours
+                }
                 val description = try {
                     row[10].toString()
                 } catch (e: IndexOutOfBoundsException) {
@@ -92,7 +63,8 @@ object SheetReader {
                         agency,
                         startDate,
                         endDate,
-                        hours + extraHours,
+                        hours,
+                        extraHours,
                         summer,
                         description
                     )
@@ -101,4 +73,36 @@ object SheetReader {
         }
     }
 
+    @Throws(IOException::class)
+    private fun getCredentials(HTTP_TRANSPORT: NetHttpTransport): Credential {
+        val clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, FileReader(CREDENTIALS_FILE_PATH))
+        val flow = GoogleAuthorizationCodeFlow.Builder(
+            HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES
+        )
+            .setDataStoreFactory(FileDataStoreFactory(java.io.File("resources")))
+            .setAccessType("offline")
+            .build()
+        val receiver = LocalServerReceiver.Builder().setPort(8888).build()
+        return AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
+    }
+
+    @Throws(IOException::class, GeneralSecurityException::class)
+    private fun scrapeData(): List<List<Any>>? {
+        // Build a new authorized API client service.
+        val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
+        val spreadsheetId: String
+        if (System.getenv("KYS_Spreadsheet") == null) {
+            System.err.println("KYS_Spreadsheet environmental variable not set")
+            return null
+        } else
+            spreadsheetId = System.getenv("KYS_Spreadsheet")
+        val range = "Sheet1!A2:K"
+        val service = Sheets.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport))
+            .setApplicationName("Kotlin YES System")
+            .build()
+        val response = service.spreadsheets().values()
+            .get(spreadsheetId, range)
+            .execute()
+        return response.getValues()
+    }
 }
