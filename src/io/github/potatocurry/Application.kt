@@ -64,9 +64,11 @@ fun Application.module() {
                                 h3 { +"${va.agency}: ${va.startDate}" }
                             else
                                 h3 { +"${va.agency}: ${va.startDate} - ${va.endDate}" }
-                            p { +"${va.hours} hours" }
-                            if (va.isSummer)
-                                p { +"${va.extraHours} extra hours" }
+                            p {
+                                +"${va.hours} hours"
+                                if (va.isSummer)
+                                    +" and ${va.extraHours} extra hours"
+                            }
                             p { +va.description }
                         }
                     }
