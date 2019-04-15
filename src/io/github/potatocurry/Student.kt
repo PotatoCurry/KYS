@@ -12,6 +12,7 @@ class Student(val firstName: String, val lastName: String, val gradClass: Int) {
             return hours
         }
 
+    /** Enters volunteer activity into the student's records. */
     fun enterActivity(va: VolunteerActivity) {
         activities.add(va)
     }

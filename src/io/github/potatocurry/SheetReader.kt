@@ -21,7 +21,6 @@ object SheetReader {
     private val SCOPES = listOf(SheetsScopes.SPREADSHEETS_READONLY)
     private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json"
 
-    /** Returns credential object from credential files. */
     @Throws(IOException::class)
     private fun getCredentials(HTTP_TRANSPORT: NetHttpTransport): Credential {
         val clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, FileReader(CREDENTIALS_FILE_PATH))
@@ -57,7 +56,7 @@ object SheetReader {
         if (values == null || values.isEmpty()) {
             System.err.println("Unable to retrieve data")
         } else {
-            Students.initialize()
+            Students.clear()
             for (row in values) {
                 try {
                     val number = (Integer.parseInt(row[0].toString()) - 2424) / 5

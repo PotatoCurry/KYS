@@ -4,7 +4,9 @@ import io.ktor.http.*
 import kotlin.test.*
 import io.ktor.server.testing.*
 
+/** Basic tests to ensure database is operational and web server is responsive. */
 class ApplicationTest {
+    /** Basic unit tests. */
     @Test
     fun testRoot() {
         withTestApplication({ module() }) {
