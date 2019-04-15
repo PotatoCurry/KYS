@@ -54,7 +54,10 @@ fun Application.module() {
                     }
                     body {
                         h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
-                        p { +"You have ${student.totalHours} total hours." }
+                        if (student.totalExtraHours.equals(0))
+                            p { +"You have ${student.totalHours} total hours." }
+                        else
+                            p { +"You have ${student.totalHours} regular hours and ${student.totalExtraHours} extra hours." }
                         h2 { +"Volunteering Records" }
                         student.activities.forEach { va ->
                             if (va.endDate == "")

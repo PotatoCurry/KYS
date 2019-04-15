@@ -5,12 +5,10 @@ class Student(val firstName: String, val lastName: String, val gradClass: Int) {
     val activities: MutableList<VolunteerActivity> = mutableListOf()
 
     val totalHours: Double
-        get() {
-            var hours = 0.0
-            for (va in activities)
-                hours += va.hours
-            return hours
-        }
+        get() = activities.sumByDouble(VolunteerActivity::hours)
+
+    val totalExtraHours: Double
+        get() = activities.sumByDouble(VolunteerActivity::extraHours)
 
     /** Enters volunteer activity into the student's records. */
     fun enterActivity(va: VolunteerActivity) {
