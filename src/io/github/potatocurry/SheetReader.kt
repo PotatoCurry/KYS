@@ -26,50 +26,50 @@ object SheetReader {
         val values = scrapeData()
         if (values == null || values.isEmpty()) {
             System.err.println("Unable to retrieve data")
-        } else {
-            Students.clear()
-            for (row in values) {
-                val number = (Integer.parseInt(row[0].toString()) - 2424) / 5
-                val agency = row[4].toString()
-                val startDate = row[5].toString()
-                val endDate = row[6].toString()
-                val hours = try {
-                    java.lang.Double.parseDouble(row[7].toString())
-                } catch (e: NumberFormatException) {
-                    0.0
-                }
-                val summer = row[8].toString() == "SH"
-                val extraHours = try {
-                    java.lang.Double.parseDouble(row[9].toString())
-                } catch (e: NumberFormatException) {
-                    0.0
-                } catch (e: IndexOutOfBoundsException) {
-                    0.0
-                }
-                val description = try {
-                    row[10].toString()
-                } catch (e: IndexOutOfBoundsException) {
-                    ""
-                }
-
-                if (!Students.exists(number)) {
-                    val firstName = row[1].toString()
-                    val lastName = row[2].toString()
-                    val gradClass = Integer.parseInt(row[3].toString())
-                    Students.add(number, Student(firstName, lastName, gradClass))
-                }
-                Students[number]!!.enterActivity(
-                    VolunteerActivity(
-                        agency,
-                        startDate,
-                        endDate,
-                        hours,
-                        extraHours,
-                        summer,
-                        description
-                    )
-                )
+            return
+        }
+        Students.clear()
+        for (row in values) {
+            val number = (Integer.parseInt(row[0].toString()) - 2424) / 5
+            val agency = row[4].toString()
+            val startDate = row[5].toString()
+            val endDate = row[6].toString()
+            val hours = try {
+                java.lang.Double.parseDouble(row[7].toString())
+            } catch (e: NumberFormatException) {
+                0.0
             }
+            val summer = row[8].toString() == "SH"
+            val extraHours = try {
+                java.lang.Double.parseDouble(row[9].toString())
+            } catch (e: NumberFormatException) {
+                0.0
+            } catch (e: IndexOutOfBoundsException) {
+                0.0
+            }
+            val description = try {
+                row[10].toString()
+            } catch (e: IndexOutOfBoundsException) {
+                ""
+            }
+
+            if (!Students.exists(number)) {
+                val firstName = row[1].toString()
+                val lastName = row[2].toString()
+                val gradClass = Integer.parseInt(row[3].toString())
+                Students.add(number, Student(firstName, lastName, gradClass))
+            }
+            Students[number]!!.enterActivity(
+                VolunteerActivity(
+                    agency,
+                    startDate,
+                    endDate,
+                    hours,
+                    extraHours,
+                    summer,
+                    description
+                )
+            )
         }
     }
 
@@ -88,14 +88,12 @@ object SheetReader {
 
     @Throws(IOException::class, GeneralSecurityException::class)
     private fun scrapeData(): List<List<Any>>? {
-        // Build a new authorized API client service.
         val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
-        val spreadsheetId: String
-        if (System.getenv("KYS_Spreadsheet") == null) {
+        val spreadsheetId = System.getenv("KYS_Spreadsheet")
+        if (spreadsheetId == null) {
             System.err.println("KYS_Spreadsheet environmental variable not set")
             return null
-        } else
-            spreadsheetId = System.getenv("KYS_Spreadsheet")
+        }
         val range = "Sheet1!A2:K"
         val service = Sheets.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport))
             .setApplicationName("Kotlin YES System")
