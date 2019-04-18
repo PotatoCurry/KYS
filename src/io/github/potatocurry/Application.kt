@@ -51,7 +51,7 @@ fun Application.module() {
                     }
                     body {
                         h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
-                        if (student.totalExtraHours.equals(0))
+                        if (student.totalExtraHours == 0.0)
                             p { +"You have ${student.totalHours} total hours." }
                         else
                             p { +"You have ${student.totalHours} regular hours and ${student.totalExtraHours} extra hours." }
