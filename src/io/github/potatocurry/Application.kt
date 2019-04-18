@@ -1,7 +1,6 @@
 package io.github.potatocurry
 
 import io.ktor.application.Application
-import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.apache.Apache
@@ -14,14 +13,12 @@ import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
-import kotlinx.css.*
 import kotlinx.html.*
-import java.lang.NumberFormatException
 
 /** Starts main application server. */
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 
-/** Main web server module listening for requests. */
+/** Main web server listening for requests. */
 fun Application.module() {
     HttpClient(Apache)
 
@@ -75,24 +72,5 @@ fun Application.module() {
                 }
             }
         }
-
-        get("/styles.css") {
-            call.respondCss {
-                body {
-                    backgroundColor = Color.red
-                }
-                p {
-                    fontSize = 2.em
-                }
-                rule("p.myclass") {
-                    color = Color.blue
-                }
-            }
-        }
     }
-}
-
-/** Builds CSS. */
-suspend inline fun ApplicationCall.respondCss(builder: CSSBuilder.() -> Unit) {
-    this.respondText(CSSBuilder().apply(builder).toString(), ContentType.Text.CSS)
 }
