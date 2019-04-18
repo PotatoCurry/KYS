@@ -3,7 +3,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_ba128ab7f545_key -iv $encrypted_ba128ab7f545_iv
   -in credentials.tar.enc -out resources/credentials.tar -d
 - tar xvf resources/credentials.tar -C resources/
-after_install:
+after_success:
 - sudo apt-get install jq
 - curl -Ls -o codacy-coverage-reporter "$(curl -Ls https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | jq -r '.assets | map({name, browser_download_url} | select(.name | contains("codacy-coverage-reporter-linux"))) | .[0].browser_download_url')"
 - chmod +x codacy-coverage-reporter
