@@ -22,11 +22,12 @@ object SheetReader {
     private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json"
 
     /** Reinitialize database with updated values. */
+    @Throws(KotlinNullPointerException::class)
     fun refreshData() {
         val values = scrapeData()
-        if (values == null || values.isEmpty()) {
+        if (values == null) {
             System.err.println("Unable to retrieve data")
-            return
+            throw KotlinNullPointerException("Null spreadsheet")
         }
         Students.clear()
         values.forEach { row ->
