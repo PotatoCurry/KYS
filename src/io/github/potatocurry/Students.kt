@@ -11,14 +11,10 @@ object Students {
         students.clear()
     }
 
-    /** Checks if the specified student by ID exists. */
-    fun exists(id: Int): Boolean {
-        return students.containsKey(id)
-    }
-
     /** Adds a new student to the database. */
-    fun add(number: Int, student: Student) {
+    fun add(number: Int, student: Student): Student {
         students[number] = student
+        return student
     }
 
     /** Returns the specified student by ID. */

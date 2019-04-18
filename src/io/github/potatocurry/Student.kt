@@ -11,7 +11,8 @@ class Student(val firstName: String, val lastName: String, val gradClass: Int) {
         get() = activities.sumByDouble(VolunteerActivity::extraHours)
 
     /** Enters volunteer activity into the student's records. */
-    fun enterActivity(va: VolunteerActivity) {
+    fun enterActivity(va: VolunteerActivity): VolunteerActivity {
         activities.add(va)
+        return va
     }
 }

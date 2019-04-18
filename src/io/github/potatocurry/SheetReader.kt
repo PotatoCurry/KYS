@@ -29,7 +29,7 @@ object SheetReader {
             return
         }
         Students.clear()
-        for (row in values) {
+        values.forEach { row ->
             val number = (Integer.parseInt(row[0].toString()) - 2424) / 5
             val agency = row[4].toString()
             val startDate = row[5].toString()
@@ -53,13 +53,14 @@ object SheetReader {
                 ""
             }
 
-            if (!Students.exists(number)) {
+            var student = Students[number]
+            if (student == null) {
                 val firstName = row[1].toString()
                 val lastName = row[2].toString()
                 val gradClass = Integer.parseInt(row[3].toString())
-                Students.add(number, Student(firstName, lastName, gradClass))
+                student = Students.add(number, Student(firstName, lastName, gradClass))
             }
-            Students[number]!!.enterActivity(
+            student.enterActivity(
                 VolunteerActivity(
                     agency,
                     startDate,
@@ -103,4 +104,6 @@ object SheetReader {
             .execute()
         return response.getValues()
     }
+
+
 }
