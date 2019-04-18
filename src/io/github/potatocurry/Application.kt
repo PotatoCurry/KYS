@@ -36,9 +36,7 @@ fun Application.module() {
         get("/query/{number}") {
             SheetReader.refreshData()
             val number = call.parameters["number"]
-            try {
-                number!!.toInt()
-            } catch (e: NumberFormatException) {
+            if (number?.toIntOrNull() == null) {
                 call.respondText("Error parsing ID $number.", ContentType.Text.Plain)
                 return@get
             }
