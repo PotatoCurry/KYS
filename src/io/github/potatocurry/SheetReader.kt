@@ -55,8 +55,8 @@ object SheetReader {
 
             var student = Students[number]
             if (student == null) {
-                val firstName = row[1].toString()
-                val lastName = row[2].toString()
+                val firstName = row[1].toString().trim()
+                val lastName = row[2].toString().trim()
                 val gradClass = Integer.parseInt(row[3].toString())
                 student = Students.add(number, Student(firstName, lastName, gradClass))
             }

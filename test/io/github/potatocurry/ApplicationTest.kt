@@ -8,6 +8,20 @@ import kotlin.test.*
 
 /** Basic tests to ensure database is operational and web server is responsive. */
 class ApplicationTest {
+    /** Tests accuracy of student database.
+     *  This will need to be periodically updated with new student data.
+     */
+    @Test
+    fun testDatabase() {
+        withTestApplication({ module() }) {
+            val student = Students[625783]
+            assertNotNull(student)
+            assertEquals("Damian Lall", "${student.firstName} ${student.lastName}")
+            assertEquals(18.0, student.totalHours)
+            assertEquals(0.0, student.totalExtraHours)
+        }
+    }
+
     /** Tests if web server is responsive and is able to retrieve student data. */
     @Test
     fun testWeb() {
