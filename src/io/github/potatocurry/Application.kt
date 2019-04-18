@@ -38,34 +38,34 @@ fun Application.module() {
             val number = call.parameters["number"]
             if (number?.toIntOrNull() == null) {
                 call.respondText("Error parsing ID $number.", ContentType.Text.Plain)
-                return@get
-            }
-            val student = Students[number.toInt()]
-            if (student == null) {
-                call.respondText("The specified student with ID $number was not found.", ContentType.Text.Plain)
             } else {
-                call.respondHtml {
-                    head {
-                        title { +"KYS | ${student.firstName} ${student.lastName}" }
-                    }
-                    body {
-                        h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
-                        if (student.totalExtraHours == 0.0)
-                            p { +"You have ${student.totalHours} total hours." }
-                        else
-                            p { +"You have ${student.totalHours} regular hours and ${student.totalExtraHours} extra hours." }
-                        h2 { +"Volunteering Records" }
-                        student.activities.forEach { va ->
-                            if (va.endDate == "")
-                                h3 { +"${va.agency}: ${va.startDate}" }
+                val student = Students[number.toInt()]
+                if (student == null) {
+                    call.respondText("The specified student with ID $number was not found.", ContentType.Text.Plain)
+                } else {
+                    call.respondHtml {
+                        head {
+                            title { +"KYS | ${student.firstName} ${student.lastName}" }
+                        }
+                        body {
+                            h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
+                            if (student.totalExtraHours == 0.0)
+                                p { +"You have ${student.totalHours} total hours." }
                             else
-                                h3 { +"${va.agency}: ${va.startDate} - ${va.endDate}" }
-                            p {
-                                +"${va.hours} hours"
-                                if (va.isSummer)
-                                    +" and ${va.extraHours} extra hours"
+                                p { +"You have ${student.totalHours} regular hours and ${student.totalExtraHours} extra hours." }
+                            h2 { +"Volunteering Records" }
+                            student.activities.forEach { va ->
+                                if (va.endDate == "")
+                                    h3 { +"${va.agency}: ${va.startDate}" }
+                                else
+                                    h3 { +"${va.agency}: ${va.startDate} - ${va.endDate}" }
+                                p {
+                                    +"${va.hours} hours"
+                                    if (va.isSummer)
+                                        +" and ${va.extraHours} extra hours"
+                                }
+                                p { +va.description }
                             }
-                            p { +va.description }
                         }
                     }
                 }
