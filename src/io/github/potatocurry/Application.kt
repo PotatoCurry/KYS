@@ -20,6 +20,7 @@ fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 /** Main web server listening for requests. */
 fun Application.module() {
+    SheetReader.refreshData()
     HttpClient(Apache)
 
     routing {
