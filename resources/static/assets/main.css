@@ -6,11 +6,13 @@
 body {
   height: 100%;
   margin: 0;
-  background: #F5F5F4;
-  font-size: 28px;
+  background: white;
+  font-size: 17px;
   font-family: 'Open Sans', sans-serif;
 }
-
+  .centercontent{
+    width: 70%;
+  }
 .header {
   width: 100%;
   display: inline-block;
@@ -25,8 +27,8 @@ body {
   overflow: hidden;
   background-color: #333;
   font-family: 'Major Mono Display','Open Sans', sans-serif;
-  width: 70%;
   border-radius: 10px;
+  z-index: 999;
 
 }
 
@@ -59,10 +61,9 @@ body {
 .sticky {
   position: fixed;
   top: 0;
-  width: 100%;
   left: 50%;
+  border-radius: 0px 0px 10px 10px !important;
   transform: translateX(-50%);
-  border-radius: 0px !important;
 }
 
 .sticky + .content {
@@ -70,7 +71,6 @@ body {
 }
 
 .images{
-  width: 70%;
   padding: 10%;
   font-family: 'Major Mono Display','Open Sans', sans-serif;
   font-size: 20px;
@@ -93,4 +93,31 @@ body {
 }
 .images:hover{
   background-color: rgb(150,150,150);
+}
+
+.content{
+  text-align: left;
+  padding: 2% 4%;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #F5F5F4;
+  border-radius: 10px;
+}
+.big{
+  font-size: 28px;
+}
+
+.button{
+  background-color: #549DC4;
+  border: none;
+  color: white; 
+  margin: 4px 2px;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+  padding: 1% 2%;
+}
+
+.textbox{
+  margin-left: 3px;
+  padding: 2px;
 }
