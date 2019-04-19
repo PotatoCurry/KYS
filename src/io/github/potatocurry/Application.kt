@@ -4,7 +4,6 @@ import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.apache.Apache
 import io.ktor.features.StatusPages
 import io.ktor.html.respondHtml
 import io.ktor.http.ContentType
@@ -16,15 +15,13 @@ import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
-import io.ktor.server.netty.EngineMain
 import kotlinx.html.*
-import java.io.FileNotFoundException
-
-/** Starts main application server. */
-fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 /** Main web server listening for requests. */
 fun Application.module() {
+    SheetReader.refreshData()
+    HttpClient()
+
     install(StatusPages) {
         status(HttpStatusCode.NotFound) {
             call.respond("${it.value} ${it.description}")
@@ -34,9 +31,6 @@ fun Application.module() {
             throw it
         }
     }
-
-    SheetReader.refreshData()
-    HttpClient(Apache)
 
     routing {
         static("/") {
