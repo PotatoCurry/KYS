@@ -1,12 +1,12 @@
 language: java
 before_install:
-- openssl aes-256-cbc -K $encrypted_ba128ab7f545_key -iv $encrypted_ba128ab7f545_iv
-  -in resources/credentials.tar.enc -out resources/credentials.tar -d
-- tar xvf resources/credentials.tar
+  - openssl aes-256-cbc -K $encrypted_ba128ab7f545_key -iv $encrypted_ba128ab7f545_iv
+    -in resources/credentials.tar.enc -out resources/credentials.tar -d
+  - tar xvf resources/credentials.tar
 after_success:
-- sudo apt-get install jq
-- LATEST_VERSION="$(curl -Ls https://api.bintray.com/packages/codacy/Binaries/codacy-coverage-reporter/versions/_latest
-  | jq -r .name)"
-- curl -Ls -o codacy-coverage-reporter "https://dl.bintray.com/codacy/Binaries/${LATEST_VERSION}/codacy-coverage-reporter-linux"
-- chmod +x codacy-coverage-reporter
-- "./codacy-coverage-reporter report -l Kotlin -r build/reports/jacoco/test/jacocoTestReport.xml"
+  - sudo apt-get install jq
+  - LATEST_VERSION="$(curl -Ls https://api.bintray.com/packages/codacy/Binaries/codacy-coverage-reporter/versions/_latest
+    | jq -r .name)"
+  - curl -Ls -o codacy-coverage-reporter "https://dl.bintray.com/codacy/Binaries/${LATEST_VERSION}/codacy-coverage-reporter-linux"
+  - chmod +x codacy-coverage-reporter
+  - "./codacy-coverage-reporter report -l Kotlin -r build/reports/jacoco/test/jacocoTestReport.xml"
