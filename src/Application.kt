@@ -15,7 +15,11 @@ import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
+import io.ktor.server.netty.EngineMain
 import kotlinx.html.*
+
+/** Starts main application server. */
+fun main(args: Array<String>) = EngineMain.main(args)
 
 /** Main web server listening for requests. */
 fun Application.module() {
