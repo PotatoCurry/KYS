@@ -2,7 +2,7 @@ buildscript {
     repositories {
         jcenter()
     }
-    
+
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -57,3 +57,5 @@ jacocoTestReport {
 }
 
 test.finalizedBy jacocoTestReport
+
+task stage(dependsOn: ['build', 'clean'])
