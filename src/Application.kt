@@ -1,9 +1,11 @@
 package io.github.potatocurry
 
+import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.client.HttpClient
+import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
 import io.ktor.html.respondHtml
 import io.ktor.http.ContentType
@@ -11,6 +13,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.content.resource
 import io.ktor.http.content.resources
 import io.ktor.http.content.static
+import io.ktor.jackson.jackson
 import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.get
@@ -33,6 +36,12 @@ fun Application.module() {
         exception<Exception> {
             call.respond(HttpStatusCode.InternalServerError)
             throw it
+        }
+    }
+
+    install(ContentNegotiation) {
+        jackson {
+            enable(SerializationFeature.INDENT_OUTPUT)
         }
     }
 
@@ -81,6 +90,21 @@ fun Application.module() {
                             }
                         }
                     }
+                }
+            }
+        }
+
+        get("/query/{number}/json") {
+            SheetReader.refreshData()
+            val number = call.parameters["number"]
+            if (number?.toIntOrNull() == null) {
+                call.respondText("Error parsing ID $number.", ContentType.Text.Plain)
+            } else {
+                val student = Students[number.toInt()]
+                if (student == null) {
+                    call.respondText("The specified student with ID $number was not found.", ContentType.Text.Plain)
+                } else {
+                    call.respond(student)
                 }
             }
         }

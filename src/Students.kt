@@ -4,7 +4,7 @@ import kotlin.collections.HashMap
 
 /** Holds students and acts as interface for adding/removing students from database. */
 object Students {
-    private var students = HashMap<Int, Student>()
+    var students = HashMap<Int, Student>()
 
     /** Clears students database. */
     fun clear() {
