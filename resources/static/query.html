@@ -30,14 +30,23 @@
         <p class = "big"> Yes Hour Query<p>
         <p>The query returns your Y.E.S. hours ONLY when you have submitted a signed Y.E.S. Contract. </p>
         <p>*It may take up to 3 weeks for your submission to be published online.</p>
+
         <br><br>
-        Enter Student ID:  <input type="number" id="id" class = "textbox" max="999999">
+
+        Enter Student ID: <input type="number" id="id" class = "textbox" >
+
         <br>
         <br>
         <input type="submit" id="submit" class="button">
         <script>
           document.getElementById('submit').onclick = function() {
-          location.href = '/query/' + document.getElementById('id').value;
+            var temp = document.getElementById('id').value;
+            if(temp == "" || temp > 999999){
+              alert("please enter a valid id");
+            }else{
+              location.href = '/query/' + document.getElementById('id').value;
+            }
+          
           };
         </script>
 
