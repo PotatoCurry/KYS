@@ -3,7 +3,6 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 }else{
   window.onscroll = function() {myFunction()};
 
-
   var navbar = document.getElementById("navbar");
   var sticky = navbar.offsetTop;
 
