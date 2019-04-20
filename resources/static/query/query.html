@@ -1,5 +1,6 @@
 <!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="..\assets\logo.png"/>
     <link href="..\assets\main.css" rel='stylesheet'/>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <body>
@@ -30,7 +31,7 @@
         <p>*It may take up to 3 weeks for your submission to be published online.</p>
         <br><br>
         <form action="---">
-        Enter Student ID:  <input type="number" name="id" value="" class = "textbox"><br>
+        Enter Student ID:  <input type="number" name="id" value="" class = "textbox" onkeydown="limit(this, 6);" onkeyup="limit(this, 6);" onkeyup="this.value = minmax(this.value, 0, 6)" required><br>
         <br>
         <input type="submit" value="Submit" class="button">
         </form>
@@ -45,4 +46,4 @@
 
   </body>
 
-<script src="assets/main.js"></script>
+<script src="..\assets\main.js"></script>
