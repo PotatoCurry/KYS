@@ -1,1 +1,1 @@
-web: java -jar build/libs/KYS.jar
+web: java -jar build/libs/KYS-all.jar
