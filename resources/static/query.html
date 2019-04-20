@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+    <title>CHS KYS Query</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="..\assets\logo.png"/>
     <link href="..\assets\main.css" rel='stylesheet'/>
@@ -16,7 +17,7 @@
 
     <center>
       <div id="navbar" class="centercontent">
-        <a href="javascript:void(0)">home</a>
+        <a href="/">home</a>
         <a href="javascript:void(0)">forms</a>
         <a href="javascript:void(0)">volunteer opportunities</a>
         <a class="active" href="javascript:void(0)">yes hour query</a>
@@ -30,18 +31,21 @@
         <p>The query returns your Y.E.S. hours ONLY when you have submitted a signed Y.E.S. Contract. </p>
         <p>*It may take up to 3 weeks for your submission to be published online.</p>
         <br><br>
-        <form action="---">
-        Enter Student ID:  <input type="number" name="id" value="" class = "textbox" onkeydown="limit(this, 6);" onkeyup="limit(this, 6);" onkeyup="this.value = minmax(this.value, 0, 6)" required><br>
+        Enter Student ID:  <input type="number" id="id" value="" class = "textbox"><br>
         <br>
-        <input type="submit" value="Submit" class="button">
-        </form>
+        <input type="submit" value="Submit" id="submit" class="button">
+        <script>
+          document.getElementById('submit').onclick = function() {
+          location.href = '/query/' + document.getElementById('id').value;
+          };
+        </script>
 
         <br><br><br><br><br>
 
       </div>
    </center>
 
-  
+
 
 
   </body>

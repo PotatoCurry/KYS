@@ -49,11 +49,8 @@ fun Application.module() {
     routing {
         static("/") {
             resources("static")
-            resource("/", "static/index.html")
-        }
-
-        get("/query") {
-            call.respondText("Go to /query/{number}", ContentType.Text.Plain)
+            resource("/", "static/home.html")
+            resource("/query", "static/query.html")
         }
 
         get("/query/{number}") {
@@ -68,7 +65,8 @@ fun Application.module() {
                 } else {
                     call.respondHtml {
                         head {
-                            title { +"KYS | ${student.firstName} ${student.lastName}" }
+                            title("KYS | ${student.firstName} ${student.lastName}")
+                            meta("viewport", "width=device-width, initial-scale=1")
                         }
                         body {
                             h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
