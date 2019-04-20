@@ -35,6 +35,7 @@ fun Application.module() {
         }
         exception<Exception> {
             call.respond(HttpStatusCode.InternalServerError, "${it.message}\n${it.stackTrace}")
+            it.printStackTrace()
             throw it
         }
     }
