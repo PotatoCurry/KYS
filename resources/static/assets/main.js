@@ -1,16 +1,23 @@
-window.onscroll = function() {myFunction()};
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+ // some code..
+}else{
+  window.onscroll = function() {myFunction()};
 
-var navbar = document.getElementById("navbar");
-var sticky = navbar.offsetTop;
+
+  var navbar = document.getElementById("navbar");
+  var sticky = navbar.offsetTop;
 
 
-function myFunction() {
-  if (window.pageYOffset >= sticky) {
-    navbar.classList.add("sticky");
-  } else {
-    navbar.classList.remove("sticky");
+  function myFunction() {
+    if (window.pageYOffset >= sticky) {
+      navbar.classList.add("sticky");
+    } else {
+      navbar.classList.remove("sticky");
+    }
   }
 }
+//Now include js files
+
 /*
       var images = [], x = 0;
           images[0] = "assets/pic1.jpg";
@@ -31,17 +38,3 @@ function myFunction() {
               setInterval(displayNextImage, 5000);
       }
 */
-function limit(element, max_chars)
-{
-    if(element.value.length > max_chars) {
-        element.value = element.value.substr(0, max_chars);
-    }
-}
-function minmax(value, min, max) 
-{
-    if(parseInt(value) < min || isNaN(parseInt(value))) 
-        return 0; 
-    else if(parseInt(value) > max) 
-        return 100; 
-    else return value;
-}
