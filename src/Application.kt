@@ -31,10 +31,11 @@ fun Application.module() {
 
     install(StatusPages) {
         status(HttpStatusCode.NotFound) {
-            call.respond("${it.value} ${it.description}")
+            call.respond(HttpStatusCode.NotFound, "${it.value} ${it.description}")
         }
         exception<Exception> {
-            call.respond(HttpStatusCode.InternalServerError)
+            call.respond(HttpStatusCode.InternalServerError, "${it.message}\n${it.stackTrace}")
+            it.printStackTrace()
             throw it
         }
     }
