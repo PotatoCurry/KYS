@@ -130,7 +130,29 @@ h2{
   margin-left: 3px;
   padding: 2px;
 }
+input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+ 
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  transition: 0.4s;
+}
 @media screen and (max-width: 600px) {
+  .column {
+      width: 100%;
+  }
   .centercontent{
     width :95%;
   }

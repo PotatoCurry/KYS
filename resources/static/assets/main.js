@@ -1,5 +1,5 @@
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
- // some code..
+  
 }else{
   window.onscroll = function() {myFunction()};
 
@@ -15,8 +15,7 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
     }
   }
 }
-//Now include js files
-
+//image switcher for desktop?
 /*
       var images = [], x = 0;
           images[0] = "assets/pic1.jpg";
