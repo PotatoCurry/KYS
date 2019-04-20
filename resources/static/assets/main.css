@@ -11,9 +11,12 @@ body {
   font-family: 'Open Sans', sans-serif;
   transition: 0.3s;
 }
-  .centercontent{
-    width: 70%;
-  }
+.centercontent{
+  width: 70%;
+}
+h2{
+  animation: fadein 2s;
+}
 .header {
   width: 100%;
   display: inline-block;
@@ -126,5 +129,8 @@ body {
 @media screen and (max-width: 600px) {
   .centercontent{
     width :95%;
+  }
+  .images{
+    padding: 30%;
   }
 }
