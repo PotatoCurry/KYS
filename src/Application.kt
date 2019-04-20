@@ -65,7 +65,7 @@ fun Application.module() {
                     call.respondHtml {
                         head {
                             title("KYS | ${student.firstName} ${student.lastName}")
-                            meta("viewport", "initial-scale=1")
+                            meta("viewport", "width=device-width, initial-scale=1")
                         }
                         body {
                             h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
