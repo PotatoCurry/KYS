@@ -101,6 +101,7 @@ h2{
 }
 .images:hover{
   background-color: rgb(150,150,150);
+  cursor: pointer;
 }
 
 .content{
@@ -151,7 +152,7 @@ input[type="number"] {
 }
 @media screen and (max-width: 600px) {
   .column {
-      width: 100%;
+      width: 100% !important;
   }
   .centercontent{
     width :95%;
@@ -161,3 +162,6 @@ input[type="number"] {
   }
 }
 
+.link{
+  text-decoration: none;
+}
