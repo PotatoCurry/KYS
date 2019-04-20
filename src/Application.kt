@@ -48,11 +48,8 @@ fun Application.module() {
     routing {
         static("/") {
             resources("static")
-            resource("/", "static/index.html")
-        }
-
-        get("/query") {
-            call.respondText("Go to /query/{number}", ContentType.Text.Plain)
+            resource("/", "static/home.html")
+            resource("/query", "static/query.html")
         }
 
         get("/query/{number}") {
