@@ -64,7 +64,8 @@ fun Application.module() {
                 } else {
                     call.respondHtml {
                         head {
-                            title { +"KYS | ${student.firstName} ${student.lastName}" }
+                            title("KYS | ${student.firstName} ${student.lastName}")
+                            meta("viewport", "initial-scale=1")
                         }
                         body {
                             h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
