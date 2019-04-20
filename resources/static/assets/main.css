@@ -9,6 +9,7 @@ body {
   background: white;
   font-size: 17px;
   font-family: 'Open Sans', sans-serif;
+  transition: 0.3s;
 }
   .centercontent{
     width: 70%;
@@ -101,6 +102,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   background-color: #F5F5F4;
   border-radius: 10px;
+  transition: 0.3s;
 }
 .big{
   font-size: 28px;
@@ -120,4 +122,9 @@ body {
 .textbox{
   margin-left: 3px;
   padding: 2px;
+}
+@media screen and (max-width: 600px) {
+  .centercontent{
+    width :95%;
+  }
 }
