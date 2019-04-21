@@ -39,18 +39,18 @@ class ApplicationTest {
                 val content = response.content
                 assertNotNull(content)
                 assertTrue(content.contains("Damian Lall"))
-                assertNotEquals("The specified student with ID 625783 was not found.", content)
-                assertNotEquals("Error parsing ID 625783.", content)
+                assertNotEquals("Student with ID 625783 not found", content)
+                assertNotEquals("Error parsing ID 625783", content)
             }
             handleRequest(HttpMethod.Get, "/query/000000").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertNotNull(response.content)
-                assertEquals("The specified student with ID 000000 was not found.", response.content)
+                assertEquals("Student with ID 000000 not found", response.content)
             }
             handleRequest(HttpMethod.Get, "/query/abc").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertNotNull(response.content)
-                assertEquals("Error parsing ID abc.", response.content)
+                assertEquals("Error parsing ID abc", response.content)
             }
         }
     }

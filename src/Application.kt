@@ -57,11 +57,11 @@ fun Application.module() {
             SheetReader.refreshData()
             val number = call.parameters["number"]
             if (number?.toIntOrNull() == null) {
-                call.respondText("Error parsing ID $number.", ContentType.Text.Plain)
+                call.respondText("Error parsing ID $number", ContentType.Text.Plain)
             } else {
                 val student = Students[number.toInt()]
                 if (student == null) {
-                    call.respondText("The specified student with ID $number was not found.", ContentType.Text.Plain)
+                    call.respondText("Student with ID $number not found", ContentType.Text.Plain)
                 } else {
                     call.respondHtml {
                         head {
