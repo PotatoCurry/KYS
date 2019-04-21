@@ -70,21 +70,18 @@ fun Application.module() {
                         }
                         body {
                             h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
-                            if (student.totalExtraHours == 0.0)
-                                p { +"You have ${student.totalHours} total hours." }
-                            else
-                                p { +"You have ${student.totalHours} regular hours and ${student.totalExtraHours} extra hours." }
+                            span { +"${student.totalHours} Total Hours" }
+                            if (student.totalExtraHours > 0.0)
+                                span { +" | ${student.totalExtraHours} Total Extra Hours" }
                             h2 { +"Volunteering Records" }
                             student.activities.forEach { va ->
                                 if (va.endDate == "")
                                     h3 { +"${va.agency}: ${va.startDate}" }
                                 else
                                     h3 { +"${va.agency}: ${va.startDate} - ${va.endDate}" }
-                                p {
-                                    +"${va.hours} hours"
-                                    if (va.extraHours > 0.0)
-                                        +" and ${va.extraHours} extra hours"
-                                }
+                                span { +"${va.hours} Hours" }
+                                if (va.extraHours > 0.0)
+                                    span{ +" | ${va.extraHours} Extra Hours" }
                                 p { +va.description }
                             }
                         }
