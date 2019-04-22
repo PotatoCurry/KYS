@@ -18,38 +18,20 @@
     <center>
       <div id="navbar" class="centercontent">
         <a href="/">home</a>
-        <a href="forms">forms</a>
+        <a class="active" href="javascript:void(0)">forms</a>
         <a href="javascript:void(0)">yeselite</a>
         <a href="javascript:void(0)">volunteer opportunities</a>
-        <a class="active" href="javascript:void(0)">yes hour query</a>
+        <a href="query">yes hour query</a>
       </div>
     </center>
 
     <br>
     <center>
       <div class = "content centercontent">
-        <p class = "big"> Yes Hour Query<p>
-        <p>The query returns your Y.E.S. hours ONLY when you have submitted a signed Y.E.S. Contract. </p>
-        <p>*It may take up to 3 weeks for your submission to be published online.</p>
-
-        <br><br>
-
-        Enter Student ID: <input type="number" id="id" class = "textbox" >
-
-        <br>
-        <br>
-        <input type="submit" id="submit" class="button">
-        <script>
-          document.getElementById('submit').onclick = function() {
-            var temp = document.getElementById('id').value;
-            if(temp == "" || temp > 999999 || temp < 100000){
-              alert("please enter a valid id");
-            }else{
-              location.href = '/query/' + document.getElementById('id').value;
-            }
-          
-          };
-        </script>
+        <p class = "big"> Forms<p>
+        <button class= "button" onclick="window.location.href = 'assets/forms/yesform2018.pdf'"> Yes Form</button>
+        <button class= "button" onclick="window.location.href = 'assets/forms/yescontract.pdf'"> Yes Contract</button>
+        <button class= "button" onclick="window.location.href = 'assets/forms/yeslog.pdf'"> Yes Log</button>
 
         <br><br><br><br><br>
 
