@@ -26,7 +26,6 @@ fun main(args: Array<String>) = EngineMain.main(args)
 
 /** Main web server listening for requests. */
 fun Application.module() {
-    SheetReader.refreshData()
     HttpClient()
 
     install(StatusPages) {
