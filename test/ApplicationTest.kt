@@ -13,6 +13,7 @@ class ApplicationTest {
      */
     @Test
     fun testDatabase() {
+        SheetReader.refreshData()
         withTestApplication({ module() }) {
             val student = Students[625783]
             assertNotNull(student)
