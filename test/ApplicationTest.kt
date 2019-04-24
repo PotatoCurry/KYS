@@ -31,6 +31,10 @@ class ApplicationTest {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertNotNull(response.content)
             }
+            handleRequest(HttpMethod.Get, "/forms").apply {
+                assertEquals(HttpStatusCode.OK, response.status())
+                assertNotNull(response.content)
+            }
             handleRequest(HttpMethod.Get, "/query").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
                 assertNotNull(response.content)

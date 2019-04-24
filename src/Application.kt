@@ -50,6 +50,7 @@ fun Application.module() {
             resources("static")
             resource("/", "static/home.html")
             resource("/query", "static/query.html")
+            resource("/forms", "static/forms.html")
         }
 
         get("/query/{number}") {
