@@ -74,7 +74,7 @@ fun Application.module() {
                             if (student.totalExtraHours > 0.0)
                                 span { +" | ${student.totalExtraHours} Total Extra Hours" }
                             h2 { +"Volunteering Records" }
-                            student.activities.forEach { va ->
+                            student.records.forEach { va ->
                                 if (va.endDate == "")
                                     h3 { +"${va.agency}: ${va.startDate}" }
                                 else
