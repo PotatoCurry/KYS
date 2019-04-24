@@ -2,7 +2,8 @@ package io.github.potatocurry
 
 /** Holds student information. */
 class Student(val firstName: String, val lastName: String, val gradClass: Int) {
-    val activities = mutableListOf<VolunteerActivity>()
+    private val activities = mutableListOf<VolunteerActivity>()
+    val records: List<VolunteerActivity> = activities
 
     val totalHours: Double
         get() = activities.sumByDouble(VolunteerActivity::hours)

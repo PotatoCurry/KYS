@@ -50,6 +50,7 @@ fun Application.module() {
             resources("static")
             resource("/", "static/home.html")
             resource("/query", "static/query.html")
+            resource("/forms", "static/forms.html")
         }
 
         get("/query/{number}") {
@@ -73,7 +74,7 @@ fun Application.module() {
                             if (student.totalExtraHours > 0.0)
                                 span { +" | ${student.totalExtraHours} Total Extra Hours" }
                             h2 { +"Volunteering Records" }
-                            student.activities.forEach { va ->
+                            student.records.forEach { va ->
                                 if (va.endDate == "")
                                     h3 { +"${va.agency}: ${va.startDate}" }
                                 else
