@@ -1,10 +1,8 @@
 package io.github.potatocurry
 
-import kotlin.collections.HashMap
-
 /** Holds students and acts as interface for adding/removing students from database. */
 object Students {
-    var students = HashMap<Int, Student>()
+    private var students = HashMap<Int, Student>()
 
     /** Clears students database. */
     fun clear() {
@@ -20,5 +18,9 @@ object Students {
     /** Returns the specified student by ID. */
     operator fun get(number: Int): Student? {
         return students[number]
+    }
+
+    fun getRandomNumber(): Int {
+        return students.keys.random()
     }
 }

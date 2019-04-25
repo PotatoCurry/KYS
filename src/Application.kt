@@ -53,17 +53,20 @@ fun Application.module() {
             resource("/forms", "static/forms.html")
         }
 
-        get("/query/{number}") {
+        get("/query/{number}/{json?}") {
             SheetReader.refreshData()
-            val number = call.parameters["number"]
+            var number = call.parameters["number"]
+            if (number == "random")
+                number = Students.getRandomNumber().toString()
+
             if (number?.toIntOrNull() == null) {
                 call.respondText("Error parsing ID $number", ContentType.Text.Plain)
             } else {
                 val student = Students[number.toInt()]
-                if (student == null) {
-                    call.respondText("Student with ID $number not found", ContentType.Text.Plain)
-                } else {
-                    call.respondHtml {
+                when {
+                    student == null -> call.respondText("Student with ID $number not found", ContentType.Text.Plain)
+                    call.parameters["json"] == "json" -> call.respond(student)
+                    else -> call.respondHtml {
                         head {
                             title("KYS | ${student.firstName} ${student.lastName}")
                             meta("viewport", "width=device-width, initial-scale=1")
@@ -81,26 +84,11 @@ fun Application.module() {
                                     h3 { +"${va.agency}: ${va.startDate} - ${va.endDate}" }
                                 span { +"${va.hours} Hours" }
                                 if (va.extraHours > 0.0)
-                                    span{ +" | ${va.extraHours} Extra Hours" }
+                                    span { +" | ${va.extraHours} Extra Hours" }
                                 p { +va.description }
                             }
                         }
                     }
-                }
-            }
-        }
-
-        get("/query/{number}/json") {
-            SheetReader.refreshData()
-            val number = call.parameters["number"]
-            if (number?.toIntOrNull() == null) {
-                call.respondText("Error parsing ID $number.", ContentType.Text.Plain)
-            } else {
-                val student = Students[number.toInt()]
-                if (student == null) {
-                    call.respondText("The specified student with ID $number was not found.", ContentType.Text.Plain)
-                } else {
-                    call.respond(student)
                 }
             }
         }
