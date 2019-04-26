@@ -17,3 +17,14 @@ class Student(val firstName: String, val lastName: String, val gradClass: Int) {
         return va
     }
 }
+
+/** Holds volunteer activity information. */
+data class VolunteerActivity(
+    val agency: String,
+    val startDate: String,
+    val endDate: String,
+    val hours: Double,
+    val extraHours: Double,
+    val isSummer: Boolean,
+    val description: String
+)
