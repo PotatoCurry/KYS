@@ -22,7 +22,7 @@ JSON Response
   "firstName" : "Damian",
   "lastName" : "Lall",
   "gradClass" : 2021,
-  "activities" : [ {
+  "records" : [ {
     "agency" : "School related",
     "startDate" : "10/16/17",
     "endDate" : "4/6/18",
