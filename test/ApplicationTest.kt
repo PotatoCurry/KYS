@@ -18,7 +18,7 @@ class ApplicationTest {
             val student = Students[625783]
             assertNotNull(student)
             assertEquals("Damian Lall", "${student.firstName} ${student.lastName}")
-            assertEquals(18.0, student.totalHours)
+            assertEquals(46.0, student.totalHours)
             assertEquals(0.0, student.totalExtraHours)
         }
     }
