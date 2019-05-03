@@ -12,7 +12,6 @@ buildscript {
 apply plugin: 'kotlin'
 apply plugin: 'application'
 apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: 'jacoco'
 
 group 'KYS'
 mainClassName = "io.ktor.server.netty.EngineMain"
@@ -43,6 +42,7 @@ dependencies {
     compile "io.ktor:ktor-client-core:$ktor_version"
     compile "io.ktor:ktor-client-core-jvm:$ktor_version"
     compile "io.ktor:ktor-client-apache:$ktor_version"
+    compile "io.ktor:ktor-auth:$ktor_version"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
 
     compile "com.google.api-client:google-api-client:1.23.0"
@@ -55,13 +55,5 @@ shadowJar {
         attributes 'Main-Class': mainClassName
     }
 }
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-    }
-}
-
-test.finalizedBy jacocoTestReport
 
 task stage(dependsOn: ['build'])
