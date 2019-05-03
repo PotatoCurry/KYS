@@ -30,9 +30,25 @@ JSON Response
     "extraHours" : 0.0,
     "description" : "Volunteered to help out at the FSMS coding club.  Tought studetnts Java and helped them rite programs.",
     "summer" : false
+  }, {
+    "agency" : "School related",
+    "startDate" : "8/31/18",
+    "endDate" : "11/3/18",
+    "hours" : 16.0,
+    "extraHours" : 0.0,
+    "description" : "Taught Java and Scratch to kids at FSMS.",
+    "summer" : false
+  }, {
+    "agency" : "School related",
+    "startDate" : "2/5/19",
+    "endDate" : "2/16/19",
+    "hours" : 12.0,
+    "extraHours" : 0.0,
+    "description" : "Set p and managed PC2 system for UIL at Travis high school.",
+    "summer" : false
   } ],
-  "totalHours" : 18.0,
-  "totalExtraHours" : 0.0
+  "totalExtraHours" : 0.0,
+  "totalHours" : 46.0
 }
 ```
 
