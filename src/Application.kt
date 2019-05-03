@@ -4,19 +4,28 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
+import io.ktor.auth.Authentication
+import io.ktor.auth.UserIdPrincipal
+import io.ktor.auth.authenticate
+import io.ktor.auth.basic
 import io.ktor.client.HttpClient
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
 import io.ktor.html.respondHtml
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.content.PartData
 import io.ktor.http.content.resource
 import io.ktor.http.content.resources
 import io.ktor.http.content.static
 import io.ktor.jackson.jackson
+import io.ktor.request.isMultipart
+import io.ktor.request.receiveMultipart
 import io.ktor.response.respond
 import io.ktor.response.respondText
+import io.ktor.response.respondTextWriter
 import io.ktor.routing.get
+import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
 import kotlinx.html.*
@@ -42,6 +51,18 @@ fun Application.module() {
     install(ContentNegotiation) {
         jackson {
             enable(SerializationFeature.INDENT_OUTPUT)
+        }
+    }
+
+    install(Authentication) {
+        basic("admin") {
+            realm = "KYS Administrator Portal"
+            validate { credentials ->
+                if (credentials.password == System.getenv("KYS_Pass") ?: System.err.println("KYS_Pass environmental variable not set"))
+                    UserIdPrincipal(credentials.name)
+                else
+                    null
+            }
         }
     }
 
@@ -90,6 +111,13 @@ fun Application.module() {
                         }
                     }
                 }
+            }
+        }
+
+
+        authenticate("admin") {
+            get("/admin") {
+                call.respond("you win!")
             }
         }
     }
