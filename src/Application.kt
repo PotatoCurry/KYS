@@ -37,10 +37,34 @@ fun Application.module() {
         status(HttpStatusCode.NotFound) {
             call.respond(HttpStatusCode.NotFound, "${it.value} ${it.description}")
         }
-        exception<Exception> {
-            call.respond(HttpStatusCode.InternalServerError, "${it.message}\n${it.stackTrace}")
-            it.printStackTrace()
-            throw it
+        exception<Exception> { error ->
+            call.respondHtml(HttpStatusCode.InternalServerError) {
+                head {
+                    title("KYS | Internal Server Error")
+                    meta("viewport", "width=device-width, initial-scale=1")
+                }
+                body {
+                    h1 { +"500 Internal Server Error" }
+                    p {
+                        +"KYS experienced an issue responding to your request. "
+                        +"Please ensure the validity of your request or try again later."
+                    }
+                    p {
+                        +"If the issue persists, raise an issue on our "
+                        a("https://github.com/PotatoCurry/KYS") { +"GitHub repository" }
+                        +", attaching the following error log."
+                    }
+                    code {
+                        +"Path: ${call.request.local.uri}"
+                        br
+                        +"Error: $error"
+                        br
+                        +"Stack Trace: ${error.stackTrace}"
+                    }
+                }
+            }
+            error.printStackTrace()
+            // TODO: Set up alert system to notify me on errors
         }
     }
 
@@ -108,7 +132,6 @@ fun Application.module() {
                 }
             }
         }
-
 
         authenticate("admin") {
             get("/admin") {
