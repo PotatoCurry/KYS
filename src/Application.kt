@@ -74,7 +74,7 @@ fun Application.module() {
             SheetReader.refreshData()
             val number = call.parameters["number"]
             when {
-                number == "random" -> call.respondRedirect("/query/${Students.getRandomNumber()}")
+                number == "random" -> call.respondRedirect("/query/${Students.getRandomNumber()}/${call.parameters["json"].orEmpty()}")
                 number?.toIntOrNull() == null -> call.respondText("Error parsing ID $number", ContentType.Text.Plain)
                 else -> {
                     val student = Students[number.toInt()]
