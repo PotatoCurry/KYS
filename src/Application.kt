@@ -19,6 +19,7 @@ import io.ktor.http.content.resources
 import io.ktor.http.content.static
 import io.ktor.jackson.jackson
 import io.ktor.response.respond
+import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
@@ -71,37 +72,36 @@ fun Application.module() {
 
         get("/query/{number}/{json?}") {
             SheetReader.refreshData()
-            var number = call.parameters["number"]
-            if (number == "random")
-                number = Students.getRandomNumber().toString()
-
-            if (number?.toIntOrNull() == null) {
-                call.respondText("Error parsing ID $number", ContentType.Text.Plain)
-            } else {
-                val student = Students[number.toInt()]
-                when {
-                    student == null -> call.respondText("Student with ID $number not found", ContentType.Text.Plain)
-                    call.parameters["json"] == "json" -> call.respond(student)
-                    else -> call.respondHtml {
-                        head {
-                            title("KYS | ${student.firstName} ${student.lastName}")
-                            meta("viewport", "width=device-width, initial-scale=1")
-                        }
-                        body {
-                            h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
-                            span { +"${student.totalHours} Total Hours" }
-                            if (student.totalExtraHours > 0.0)
-                                span { +" | ${student.totalExtraHours} Total Extra Hours" }
-                            h2 { +"Volunteering Records" }
-                            student.records.forEach { va ->
-                                if (va.endDate == "")
-                                    h3 { +"${va.agency}: ${va.startDate}" }
-                                else
-                                    h3 { +"${va.agency}: ${va.startDate} - ${va.endDate}" }
-                                span { +"${va.hours} Hours" }
-                                if (va.extraHours > 0.0)
-                                    span { +" | ${va.extraHours} Extra Hours" }
-                                p { +va.description }
+            val number = call.parameters["number"]
+            when {
+                number == "random" -> call.respondRedirect("/query/${Students.getRandomNumber()}")
+                number?.toIntOrNull() == null -> call.respondText("Error parsing ID $number", ContentType.Text.Plain)
+                else -> {
+                    val student = Students[number.toInt()]
+                    when {
+                        student == null -> call.respondText("Student with ID $number not found", ContentType.Text.Plain)
+                        call.parameters["json"] == "json" -> call.respond(student)
+                        else -> call.respondHtml {
+                            head {
+                                title("KYS | ${student.firstName} ${student.lastName}")
+                                meta("viewport", "width=device-width, initial-scale=1")
+                            }
+                            body {
+                                h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
+                                span { +"${student.totalHours} Total Hours" }
+                                if (student.totalExtraHours > 0.0)
+                                    span { +" | ${student.totalExtraHours} Total Extra Hours" }
+                                h2 { +"Volunteering Records" }
+                                student.records.forEach { va ->
+                                    if (va.endDate == "")
+                                        h3 { +"${va.agency}: ${va.startDate}" }
+                                    else
+                                        h3 { +"${va.agency}: ${va.startDate} - ${va.endDate}" }
+                                    span { +"${va.hours} Hours" }
+                                    if (va.extraHours > 0.0)
+                                        span { +" | ${va.extraHours} Extra Hours" }
+                                    p { +va.description }
+                                }
                             }
                         }
                     }
