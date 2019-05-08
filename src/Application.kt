@@ -25,12 +25,20 @@ import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
 import kotlinx.html.*
+import java.time.LocalDateTime
+import kotlin.concurrent.fixedRateTimer
 
 /** Starts main application server. */
 fun main(args: Array<String>) = EngineMain.main(args)
 
 /** Main web server listening for requests. */
 fun Application.module() {
+    /** Refresh database every thirty minutes. */
+    fixedRateTimer("UpdateDatabase", true, 0, 1800000) {
+        SheetReader.refreshData()
+        println("Refreshed database - ${LocalDateTime.now()}")
+    }
+
     HttpClient()
 
     install(StatusPages) {
@@ -95,7 +103,6 @@ fun Application.module() {
         }
 
         get("/query/{number}/{json?}") {
-            SheetReader.refreshData()
             val number = call.parameters["number"]
             when {
                 number == "random" -> call.respondRedirect("/query/${Students.getRandomNumber()}/${call.parameters["json"].orEmpty()}")
