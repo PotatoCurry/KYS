@@ -11,6 +11,7 @@ import com.google.api.client.json.jackson2.JacksonFactory
 import com.google.api.client.util.store.FileDataStoreFactory
 import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.SheetsScopes
+import java.io.File
 import java.io.FileReader
 import java.io.IOException
 import java.security.GeneralSecurityException
@@ -35,16 +36,10 @@ object SheetReader {
             val agency = row[4].toString()
             val startDate = row[5].toString()
             val endDate = row[6].toString()
-            val hours = try {
-                java.lang.Double.parseDouble(row[7].toString())
-            } catch (e: NumberFormatException) {
-                0.0
-            }
+            val hours = row[7].toString().toDoubleOrNull() ?: 0.0
             val summer = row[8].toString() == "SH"
             val extraHours = try {
-                java.lang.Double.parseDouble(row[9].toString())
-            } catch (e: NumberFormatException) {
-                0.0
+                row[9].toString().toDoubleOrNull() ?: 0.0
             } catch (e: IndexOutOfBoundsException) {
                 0.0
             }
@@ -81,7 +76,7 @@ object SheetReader {
         val flow = GoogleAuthorizationCodeFlow.Builder(
             HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES
         )
-            .setDataStoreFactory(FileDataStoreFactory(java.io.File("resources")))
+            .setDataStoreFactory(FileDataStoreFactory(File("resources")))
             .setAccessType("offline")
             .build()
         val receiver = LocalServerReceiver.Builder().setPort(8888).build()
