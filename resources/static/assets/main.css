@@ -164,4 +164,8 @@ input[type="number"] {
 
 .link{
   text-decoration: none;
+  transition: 0.3s;
+}
+.link:hover{
+  color: red;
 }

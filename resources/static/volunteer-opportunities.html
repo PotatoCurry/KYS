@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <title>CHS YES Query</title>
+    <title>Volunteer Opportunities</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="assets/logo.png"/>
     <link href="assets/main.css" rel='stylesheet'/>
@@ -20,38 +20,23 @@
         <a href="/">home</a>
         <a href="forms">forms</a>
         <a href="javascript:void(0)">yeselite</a>
-        <a href="volunteer-opportunities">volunteer opportunities</a>
-        <a class="active" href="javascript:void(0)">yes hour query</a>
+        <a class="active" href="javascript:void(0)">volunteer opportunities</a>
+        <a href="javascript:void(0)">yes hour query</a>
       </div>
     </center>
 
     <br>
     <center>
       <div class = "content centercontent">
-        <p class = "big"> Yes Hour Query<p>
-        <p>The query returns your Y.E.S. hours ONLY when you have submitted a signed Y.E.S. Contract. </p>
-        <p>*It may take up to 3 weeks for your submission to be published online.</p>
-
-        <br><br>
-
-        Enter Student ID: <input type="number" id="id" class = "textbox" >
-
+        <center>
+          <p class = "big"> Remember to print the Y.E.S. Form and bring it with you to the volunteer activities, and have it signed by the sponsor<p>
+          <br>
+          <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;showTz=0&amp;height=500&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=ids8418kn5kg8vc7jio3csji14%40group.calendar.google.com&amp;color=%23B1440E&amp;ctz=America%2FChicago" style=" border-width:0 " width="90%" height="600" frameborder="0" scrolling="no"></iframe>
+        </center>
         <br>
-        <br>
-        <input type="submit" id="submit" class="button">
-        <script>
-          document.getElementById('submit').onclick = function() {
-            var temp = document.getElementById('id').value;
-            if(temp == "" || temp > 999999 || temp < 100000){
-              alert("please enter a valid id");
-            }else{
-              location.href = '/query/' + document.getElementById('id').value;
-            }
-          
-          };
-        </script>
+        <p class = "big">Community Service Resources</p>
 
-        <br><br><br><br><br>
+        <br><br><br>
 
       </div>
    </center>
