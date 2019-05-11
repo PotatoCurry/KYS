@@ -98,8 +98,9 @@ fun Application.module() {
         static("/") {
             resources("static")
             resource("/", "static/home.html")
-            resource("/query", "static/query.html")
             resource("/forms", "static/forms.html")
+            resource("/volunteer-opportunities", "static/volunteer-opportunities.html")
+            resource("/query", "static/query.html")
         }
 
         get("/query/{number}/{json?}") {
