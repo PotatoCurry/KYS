@@ -8,7 +8,7 @@ import kotlin.test.*
 
 /** Basic tests to ensure database is operational and web server is responsive. */
 class ApplicationTest {
-    /** Tests accuracy of student database.
+    /** Tests accuracy of [Students] database.
      *  This will need to be periodically updated with new student data.
      */
     @Test

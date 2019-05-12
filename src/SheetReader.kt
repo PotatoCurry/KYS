@@ -16,13 +16,13 @@ import java.io.FileReader
 import java.io.IOException
 import java.security.GeneralSecurityException
 
-/** Handles scraping student data and putting it in database. */
+/** Handles scraping [Student] data and putting it in [Students] database. */
 object SheetReader {
     private val JSON_FACTORY = JacksonFactory.getDefaultInstance()
     private val SCOPES = listOf(SheetsScopes.SPREADSHEETS_READONLY)
     private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json"
 
-    /** Reinitialize database with updated values. */
+    /** Reinitialize [Students] database with updated values. */
     @Throws(KotlinNullPointerException::class)
     fun refreshData() {
         val values = scrapeData()
