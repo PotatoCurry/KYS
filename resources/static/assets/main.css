@@ -108,7 +108,7 @@ h2{
   text-align: left;
   padding: 2% 4%;
   font-family: 'Open Sans', sans-serif;
-  background-color: #e6e6e6;
+  border: 2px solid #E3E5E8;
   border-radius: 10px;
   transition: 0.3s;
 }
