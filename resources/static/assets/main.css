@@ -83,7 +83,7 @@ h2{
   font-family: 'Major Mono Display','Open Sans', sans-serif;
   font-size: 20px;
   background-image: url('pic1.jpg');
-  background-position: center; 
+  background-position: center;
   background-size: cover;
   background-color: rgb(200,200,200);
   transition:1s;
@@ -93,7 +93,7 @@ h2{
   color: white;
   position: relative;
 }
-.bottomlef{
+.bottomleft{
   position: absolute;
   bottom: 8px;
   left: 16px;
@@ -119,7 +119,7 @@ h2{
 .button{
   background-color: #549DC4;
   border: none;
-  color: white; 
+  color: white;
   margin: 4px 2px;
   cursor: pointer;
   display: inline-block;
@@ -135,7 +135,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
     -webkit-appearance: none;
     margin: 0;
 }
- 
+
 input[type="number"] {
     -moz-appearance: textfield;
 }
