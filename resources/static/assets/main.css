@@ -169,3 +169,17 @@ input[type="number"] {
 .link:hover{
   color: red;
 }
+.rounded{
+  border-radius: 100%;
+  background-color: #DCDCDC;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  transition: 0.5s;
+  border: 1px solid grey;
+}
+.rounded:hover{
+  border-radius: 10%;
+}
