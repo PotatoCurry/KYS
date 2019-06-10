@@ -1,4 +1,4 @@
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+/*if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
   
 }else{
   window.onscroll = function() {myFunction()};
@@ -15,6 +15,7 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
     }
   }
 }
+*/
 //image switcher for desktop?
 /*
       var images = [], x = 0;
