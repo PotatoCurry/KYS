@@ -52,5 +52,3 @@ JSON Response
 ```
 
 A working example of such usage can be found in the [HuskyBot](https://github.com/PotatoCurry/HuskyBot) YES query command.
-
-As KYS is under constant development, no guarantees are made as to the stability of the API, and breaking changes may be introduced without notice.
