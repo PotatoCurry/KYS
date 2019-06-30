@@ -37,12 +37,8 @@ dependencies {
     compile "ch.qos.logback:logback-classic:$logback_version"
     compile "io.ktor:ktor-server-core:$ktor_version"
     compile "io.ktor:ktor-html-builder:$ktor_version"
-    compile "io.ktor:ktor-velocity:$ktor_version"
     compile "io.ktor:ktor-server-host-common:$ktor_version"
-    compile "io.ktor:ktor-client-core:$ktor_version"
-    compile "io.ktor:ktor-client-core-jvm:$ktor_version"
-    compile "io.ktor:ktor-client-apache:$ktor_version"
-    compile "io.ktor:ktor-auth:$ktor_version"
+//    compile "io.ktor:ktor-auth:$ktor_version"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
 
     compile "com.google.api-client:google-api-client:1.30.1"
