@@ -8,7 +8,7 @@
     <root level="TRACE">
         <appender-ref ref="Console"/>
     </root>
-    <root level="INFO">
+    <root level="WARN">
         <appender-ref ref="Sentry"/>
     </root>
     <logger name="org.eclipse.jetty" level="INFO"/>
