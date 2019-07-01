@@ -79,7 +79,7 @@ object SheetReader {
     @Throws(IOException::class, GeneralSecurityException::class)
     private fun scrapeData(): List<List<Any>>? {
         val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
-        val spreadsheetId = System.getenv("KYS_Spreadsheet")
+        val spreadsheetId = System.getenv("KYS_SPREADSHEET")
         if (spreadsheetId == null) {
             kysLogger.error("KYS_Spreadsheet environmental variable not set")
             return null

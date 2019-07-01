@@ -87,7 +87,7 @@ fun Application.module() {
 //        basic("admin") {
 //            realm = "KYS Administrator Portal"
 //            validate { credentials ->
-//                if (credentials.password == System.getenv("KYS_Pass") ?: kysLogger.error("KYS_Pass environmental variable not set"))
+//                if (credentials.password == System.getenv("KYS_PASS") ?: kysLogger.error("KYS_Pass environmental variable not set"))
 //                    UserIdPrincipal(credentials.name)
 //                else
 //                    null
