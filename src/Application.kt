@@ -1,9 +1,10 @@
-package io.github.potatocurry
+package io.github.potatocurry.kys
 
 import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
+import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
 import io.ktor.html.respondHtml
@@ -20,8 +21,10 @@ import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
 import kotlinx.html.*
-import java.time.LocalDateTime
+import org.slf4j.LoggerFactory
 import kotlin.concurrent.fixedRateTimer
+
+val kysLogger = LoggerFactory.getLogger("io.github.potatocurry.kys")
 
 /** Starts main application server. */
 fun main(args: Array<String>) = EngineMain.main(args)
@@ -30,9 +33,15 @@ fun main(args: Array<String>) = EngineMain.main(args)
 fun Application.module() {
     /** Refresh database every thirty minutes. */
     fixedRateTimer("UpdateDatabase", true, 0, 1800000) {
-        SheetReader.refreshData()
-        println("Refreshed database - ${LocalDateTime.now()}")
+        try {
+            SheetReader.refreshData()
+            kysLogger.info("Refreshed database")
+        } catch (e: KotlinNullPointerException) {
+            kysLogger.error("Error refreshing database", e)
+        }
     }
+
+    install(CallLogging)
 
     install(StatusPages) {
         status(HttpStatusCode.NotFound) {
@@ -64,8 +73,7 @@ fun Application.module() {
                     }
                 }
             }
-            error.printStackTrace()
-            // TODO: Set up alert system to notify me on errors
+            kysLogger.error("Server returned 500", error)
         }
     }
 
@@ -79,7 +87,7 @@ fun Application.module() {
 //        basic("admin") {
 //            realm = "KYS Administrator Portal"
 //            validate { credentials ->
-//                if (credentials.password == System.getenv("KYS_Pass") ?: System.err.println("KYS_Pass environmental variable not set"))
+//                if (credentials.password == System.getenv("KYS_Pass") ?: kysLogger.error("KYS_Pass environmental variable not set"))
 //                    UserIdPrincipal(credentials.name)
 //                else
 //                    null

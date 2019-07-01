@@ -1,4 +1,4 @@
-package io.github.potatocurry
+package io.github.potatocurry.kys
 
 /** Holds [Student] objects and acts as interface for accessing database. */
 object Students {

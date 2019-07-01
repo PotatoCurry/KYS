@@ -1,4 +1,4 @@
-package io.github.potatocurry
+package io.github.potatocurry.kys
 
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode

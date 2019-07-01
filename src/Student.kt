@@ -1,4 +1,4 @@
-package io.github.potatocurry
+package io.github.potatocurry.kys
 
 /** Holds student information. */
 class Student(val firstName: String, val lastName: String, val gradClass: Int) {

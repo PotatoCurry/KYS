@@ -1,4 +1,4 @@
-package io.github.potatocurry
+package io.github.potatocurry.kys
 
 import com.google.api.client.auth.oauth2.Credential
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp
@@ -25,11 +25,7 @@ object SheetReader {
     /** Reinitialize [Students] database with updated values. */
     @Throws(KotlinNullPointerException::class)
     fun refreshData() {
-        val values = scrapeData()
-        if (values == null) {
-            System.err.println("Unable to retrieve data")
-            throw KotlinNullPointerException("Null spreadsheet")
-        }
+        val values = scrapeData() ?: throw KotlinNullPointerException("Null spreadsheet response")
         Students.clear()
         values.forEach { row ->
             val number = (Integer.parseInt(row[0].toString()) - 2424) / 5
@@ -85,7 +81,7 @@ object SheetReader {
         val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
         val spreadsheetId = System.getenv("KYS_Spreadsheet")
         if (spreadsheetId == null) {
-            System.err.println("KYS_Spreadsheet environmental variable not set")
+            kysLogger.error("KYS_Spreadsheet environmental variable not set")
             return null
         }
         val range = "Sheet1!A2:K"
