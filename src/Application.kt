@@ -87,7 +87,7 @@ fun Application.module() {
 //        basic("admin") {
 //            realm = "KYS Administrator Portal"
 //            validate { credentials ->
-//                if (credentials.password == System.getenv("KYS_PASS") ?: kysLogger.error("KYS_Pass environmental variable not set"))
+//                if (credentials.password == System.getenv("KYS_PASS") ?: kysLogger.error("KYS_PASS environmental variable not set"))
 //                    UserIdPrincipal(credentials.name)
 //                else
 //                    null
@@ -112,30 +112,36 @@ fun Application.module() {
                 else -> {
                     val student = Students[number.toInt()]
                     when {
-                        student == null -> call.respondText("Student with ID $number not found", ContentType.Text.Plain)
+                        student == null -> {
+                            call.respondText("Student with ID $number not found", ContentType.Text.Plain)
+                            kysLogger.trace("Student with ID $number not found")
+                        }
                         call.parameters["json"] == "json" -> call.respond(student)
-                        else -> call.respondHtml {
-                            head {
-                                title("KYS | ${student.firstName} ${student.lastName}")
-                                meta("viewport", "width=device-width, initial-scale=1")
-                            }
-                            body {
-                                h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
-                                span { +"${student.totalHours} Total Hours" }
-                                if (student.totalExtraHours > 0.0)
-                                    span { +" | ${student.totalExtraHours} Total Extra Hours" }
-                                h2 { +"Volunteering Records" }
-                                student.records.forEach { va ->
-                                    if (va.endDate == "")
-                                        h3 { +"${va.agency}: ${va.startDate}" }
-                                    else
-                                        h3 { +"${va.agency}: ${va.startDate} - ${va.endDate}" }
-                                    span { +"${va.hours} Hours" }
-                                    if (va.extraHours > 0.0)
-                                        span { +" | ${va.extraHours} Extra Hours" }
-                                    p { +va.description }
+                        else -> {
+                            call.respondHtml {
+                                head {
+                                    title("KYS | ${student.firstName} ${student.lastName}")
+                                    meta("viewport", "width=device-width, initial-scale=1")
+                                }
+                                body {
+                                    h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
+                                    span { +"${student.totalHours} Total Hours" }
+                                    if (student.totalExtraHours > 0.0)
+                                        span { +" | ${student.totalExtraHours} Total Extra Hours" }
+                                    h2 { +"Volunteering Records" }
+                                    student.records.forEach { va ->
+                                        if (va.endDate == "")
+                                            h3 { +"${va.agency}: ${va.startDate}" }
+                                        else
+                                            h3 { +"${va.agency}: ${va.startDate} - ${va.endDate}" }
+                                        span { +"${va.hours} Hours" }
+                                        if (va.extraHours > 0.0)
+                                            span { +" | ${va.extraHours} Extra Hours" }
+                                        p { +va.description }
+                                    }
                                 }
                             }
+                            kysLogger.trace("Responded with student $number")
                         }
                     }
                 }

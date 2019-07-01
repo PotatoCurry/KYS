@@ -9,7 +9,7 @@
             <level>WARN</level>
         </filter>
     </appender>
-    <root level="INFO">
+    <root level="TRACE">
         <appender-ref ref="Console"/>
         <appender-ref ref="Sentry"/>
     </root>

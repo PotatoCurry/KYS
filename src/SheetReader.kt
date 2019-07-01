@@ -66,9 +66,8 @@ object SheetReader {
     @Throws(IOException::class)
     private fun getCredentials(HTTP_TRANSPORT: NetHttpTransport): Credential {
         val clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, FileReader(CREDENTIALS_FILE_PATH))
-        val flow = GoogleAuthorizationCodeFlow.Builder(
-            HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES
-        )
+        kysLogger.debug("Loaded Google credentials")
+        val flow = GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
             .setDataStoreFactory(FileDataStoreFactory(File("resources")))
             .setAccessType("offline")
             .build()
@@ -81,7 +80,7 @@ object SheetReader {
         val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
         val spreadsheetId = System.getenv("KYS_SPREADSHEET")
         if (spreadsheetId == null) {
-            kysLogger.error("KYS_Spreadsheet environmental variable not set")
+            kysLogger.error("KYS_SPREADSHEET environmental variable not set")
             return null
         }
         val range = "Sheet1!A2:K"
@@ -91,6 +90,7 @@ object SheetReader {
         val response = service.spreadsheets().values()
             .get(spreadsheetId, range)
             .execute()
+        kysLogger.debug("Obtained spreadsheet response")
         return response.getValues()
     }
 
