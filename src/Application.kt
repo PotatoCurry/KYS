@@ -102,6 +102,7 @@ fun Application.module() {
             resources("static")
             resource("/", "static/home.html")
             resource("/forms", "static/forms.html")
+            resource("/yeselite", "static/yeselite.html")
             resource("/volunteer-opportunities", "static/volunteer-opportunities.html")
             resource("/query", "static/query.html")
         }
@@ -110,18 +111,29 @@ fun Application.module() {
             val number = call.parameters["number"]
             MDC.put("ip_address", call.request.origin.remoteHost)
             when {
-                number == "random" -> call.respondRedirect("/query/${Students.getRandomNumber()}/${call.parameters["json"].orEmpty()}")
-                number?.toIntOrNull() == null -> call.respondText("Error parsing ID $number", ContentType.Text.Plain)
+                number == "random" -> {
+                    val randomNumber = Students.getRandomNumber()
+                    call.respondRedirect("/query/$randomNumber/${call.parameters["json"].orEmpty()}")
+                    kysLogger.trace("Redirecting to {}", randomNumber)
+                }
+                number?.toIntOrNull() == null -> {
+                    call.respondText("Error parsing ID $number", ContentType.Text.Plain)
+                    kysLogger.trace("Error parsing ID {}", number)
+                }
                 else -> {
                     val student = Students[number.toInt()]
+                    MDC.put("id", number)
                     when {
                         student == null -> {
                             call.respondText("Student with ID $number not found", ContentType.Text.Plain)
-                            kysLogger.trace("Student with ID $number not found")
+                            kysLogger.trace("Student with ID {} not found", number)
                         }
-                        call.parameters["json"] == "json" -> call.respond(student)
+                        call.parameters["json"] == "json" -> {
+                            call.respond(student)
+                            kysLogger.trace("Responded with student {} JSON", number)
+                        }
                         else -> {
-                            MDC.put("id", number)
+                            // TODO: Put this in an HTML template or method to reduce Application.module() size
                             call.respondHtml {
                                 head {
                                     title("KYS | ${student.firstName} ${student.lastName}")
@@ -145,7 +157,7 @@ fun Application.module() {
                                     }
                                 }
                             }
-                            kysLogger.trace("Responded with student $number")
+                            kysLogger.trace("Responded with student {}", number)
                         }
                     }
                 }
