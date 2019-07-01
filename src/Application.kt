@@ -7,6 +7,7 @@ import io.ktor.application.install
 import io.ktor.features.CallLogging
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
+import io.ktor.features.origin
 import io.ktor.html.respondHtml
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
@@ -22,6 +23,7 @@ import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
 import kotlinx.html.*
 import org.slf4j.LoggerFactory
+import org.slf4j.MDC
 import kotlin.concurrent.fixedRateTimer
 
 val kysLogger = LoggerFactory.getLogger("io.github.potatocurry.kys")
@@ -106,6 +108,7 @@ fun Application.module() {
 
         get("/query/{number}/{json?}") {
             val number = call.parameters["number"]
+            MDC.put("ip_address", call.request.origin.remoteHost)
             when {
                 number == "random" -> call.respondRedirect("/query/${Students.getRandomNumber()}/${call.parameters["json"].orEmpty()}")
                 number?.toIntOrNull() == null -> call.respondText("Error parsing ID $number", ContentType.Text.Plain)
@@ -118,6 +121,7 @@ fun Application.module() {
                         }
                         call.parameters["json"] == "json" -> call.respond(student)
                         else -> {
+                            MDC.put("id", number)
                             call.respondHtml {
                                 head {
                                     title("KYS | ${student.firstName} ${student.lastName}")
