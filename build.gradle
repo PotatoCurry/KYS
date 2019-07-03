@@ -51,3 +51,13 @@ shadowJar {
         attributes 'Main-Class': mainClassName
     }
 }
+
+task extractCredentials(type: Exec) {
+    executable './credentials.sh'
+}
+
+task stage {
+    dependsOn 'extractCredentials'
+    dependsOn 'build'
+    tasks.findByName('build').mustRunAfter 'extractCredentials'
+}
