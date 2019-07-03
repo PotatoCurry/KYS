@@ -53,3 +53,4 @@ shadowJar {
 }
 
 task stage(dependsOn: ['build'])
+stage.mustRunAfter(executable: './credentials.sh')
