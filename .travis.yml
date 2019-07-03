@@ -11,9 +11,3 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
-deploy:
-  provider: heroku
-  api_key:
-    secure: "4k/iNqd40II7wJnpMc18C0k6LzWul39w6ORXketswXtWcjj+XtcZ5e8A/NwCNYAakGju1DKIvToTD5sBTvcxgm5hTp46BifyF6BIi9VmXXD+uGC5Kj1HweCiELB3CoSnhZsyPOavxOXO2rsBMw71bXmTJ1MnuS0SXi0dEhjZqwNVld3LYvvI7c9723EcLVoDx7CKwb08y//X8Mh3MvzaW07u81zCLzYGTChA5KqYY5iEvtK+/NdG7HOnovqm/Sb4W6tO7zeZ/spOcBakCVYBHZG+9gIk8NW2AT2rasOU206s2tkdLQrr4d8/HlgHF4DmeD5wmfSmve+GW5zhae3il0Ui8GPZShkhgFwp4ipV982mfKavIhTz5ewEsrdC+00sO6bXg+05qqSDv6tZu+xa3S6T9ui0/aS2PPAHJlBSUjGZSgwyZO56/3CBNyHicuSPmmGRIkzgRlaMe5E3w8Jk4Nl6sy7YHqlXPZ8vqK7tyodzOvg2hvJsMh+s0Y5SEHBfW/8vmelnpACixcTxA/QQ5oM14kiLrptXIQyXvfOpzq5sQLl2WZ6DjcwEmLzA9/EKE8SnCWATIjtctEhn8OSqzMPthpBloMRVYOgAyyBaFxHjxrjoIQ1o+G6aKsiUgB452U9ppa7JbXjJQqiwOwTXXon+6hZL0o6JIhTfNJBa/cQ="
-  app: chskys
-  skip_cleanup: false
