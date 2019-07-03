@@ -1,6 +1,6 @@
 run:
-  web: java -jar build/libs/KYS-all.jar -port=$PORT
   command:
     - openssl aes-256-cbc -K $KYS_CREDENTIALS_KEY -iv $KYS_CREDENTIALS_IV
       -in resources/credentials.tar.enc -out resources/credentials.tar -d
     - tar xvf resources/credentials.tar
+  web: java -jar build/libs/KYS-all.jar -port=$PORT
