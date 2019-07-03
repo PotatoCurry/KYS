@@ -1,7 +1,7 @@
 os: linux
 language: java
 before_install:
-  - openssl aes-256-cbc -K $encrypted_ba128ab7f545_key -iv $encrypted_ba128ab7f545_iv
+  - openssl aes-256-cbc -K $KYS_CREDENTIALS_KEY -iv $KYS_CREDENTIALS_IV
     -in resources/credentials.tar.enc -out resources/credentials.tar -d
   - tar xvf resources/credentials.tar
 before_cache:
