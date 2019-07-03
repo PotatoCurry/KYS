@@ -37,7 +37,7 @@ dependencies {
     implementation "io.ktor:ktor-server-core:$ktor_version"
     implementation "io.ktor:ktor-html-builder:$ktor_version"
     implementation "io.ktor:ktor-server-host-common:$ktor_version"
-    implementation "ch.qos.logback:logback-classic:$logback_version"
+    implementation "ch.qos.logback:logback-classic:1.2.3"
 //    compile "io.ktor:ktor-auth:$ktor_version"
     testImplementation "io.ktor:ktor-server-tests:$ktor_version"
     implementation "com.google.api-client:google-api-client:1.30.2"
