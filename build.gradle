@@ -51,6 +51,3 @@ shadowJar {
         attributes 'Main-Class': mainClassName
     }
 }
-
-task stage(dependsOn: ['build'])
-stage.mustRunAfter(executable: './credentials.sh')
