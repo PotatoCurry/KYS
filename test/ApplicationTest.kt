@@ -11,6 +11,7 @@ class ApplicationTest {
     /** Tests if web server is responsive and is able to retrieve student data. */
     @Test
     fun testWeb() {
+        SheetReader.refreshData()
         withTestApplication({ module() }) {
             handleRequest(HttpMethod.Get, "/").apply {
                 assertEquals(HttpStatusCode.OK, response.status())
