@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
-import io.ktor.features.CallLogging
-import io.ktor.features.ContentNegotiation
-import io.ktor.features.StatusPages
-import io.ktor.features.origin
+import io.ktor.features.*
 import io.ktor.html.respondHtml
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
@@ -42,6 +39,12 @@ fun Application.module() {
 
     install(CallLogging)
 
+    install(CORS)
+
+    install(ContentNegotiation) {
+        jackson { enable(SerializationFeature.INDENT_OUTPUT) }
+    }
+
     install(StatusPages) {
         status(HttpStatusCode.NotFound) {
             call.respond(HttpStatusCode.NotFound, "${it.value} ${it.description}")
@@ -73,12 +76,6 @@ fun Application.module() {
                 }
             }
             kysLogger.error("Server returned 500", error)
-        }
-    }
-
-    install(ContentNegotiation) {
-        jackson {
-            enable(SerializationFeature.INDENT_OUTPUT)
         }
     }
 
