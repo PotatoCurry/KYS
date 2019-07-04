@@ -33,19 +33,16 @@ import kotlin.concurrent.fixedRateTimer
 val kysLogger: Logger = LoggerFactory.getLogger("io.github.potatocurry.kys")
 
 /** Starts main application server. */
-fun main(args: Array<String>) = runBlocking {
+fun main(args: Array<String>) = EngineMain.main(args)
+
+/** Main web server listening for requests. */
+fun Application.module() {
     /** Instantiate database and refresh it hourly. */
     SheetReader.refreshData()
     fixedRateTimer("UpdateDatabase", true, 3600000, 3600000) {
         SheetReader.refreshData()
     }
 
-    /** Start web server. */
-    EngineMain.main(args)
-}
-
-/** Main web server listening for requests. */
-fun Application.module() {
     install(CallLogging)
 
     install(StatusPages) {
