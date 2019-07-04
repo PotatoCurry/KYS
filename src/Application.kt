@@ -21,9 +21,6 @@ import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.html.*
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -38,7 +35,7 @@ fun main(args: Array<String>) = EngineMain.main(args)
 /** Main web server listening for requests. */
 fun Application.module() {
     /** Instantiate database and refresh it hourly. */
-    SheetReader.refreshData()
+    SheetReader.refreshData() // TODO: Different method for instantiating and refreshing?
     fixedRateTimer("UpdateDatabase", true, 3600000, 3600000) {
         SheetReader.refreshData()
     }
