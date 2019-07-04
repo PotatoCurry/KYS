@@ -23,9 +23,12 @@ object SheetReader {
     private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json"
 
     /** Reinitialize [Students] database with updated values. */
-    @Throws(KotlinNullPointerException::class)
     fun refreshData() {
-        val values = scrapeData() ?: throw KotlinNullPointerException("Null spreadsheet response")
+        val values = scrapeData()
+        if (values == null) {
+            kysLogger.error("Spreadsheet response is null")
+            return
+        }
         Students.clear()
         values.forEach { row ->
             val number = (Integer.parseInt(row[0].toString()) - 2424) / 5
@@ -61,6 +64,7 @@ object SheetReader {
                 )
             )
         }
+        kysLogger.info("Refreshed student database")
     }
 
     @Throws(IOException::class)

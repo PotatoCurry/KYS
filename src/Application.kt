@@ -21,28 +21,31 @@ import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.html.*
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.slf4j.MDC
 import kotlin.concurrent.fixedRateTimer
 
-val kysLogger = LoggerFactory.getLogger("io.github.potatocurry.kys")
+val kysLogger: Logger = LoggerFactory.getLogger("io.github.potatocurry.kys")
 
 /** Starts main application server. */
-fun main(args: Array<String>) = EngineMain.main(args)
+fun main(args: Array<String>) = runBlocking {
+    /** Instantiate database and refresh it hourly. */
+    SheetReader.refreshData()
+    fixedRateTimer("UpdateDatabase", true, 3600000, 3600000) {
+        SheetReader.refreshData()
+    }
+
+    /** Start web server. */
+    EngineMain.main(args)
+}
 
 /** Main web server listening for requests. */
 fun Application.module() {
-    /** Refresh database every thirty minutes. */
-    fixedRateTimer("UpdateDatabase", true, 0, 1800000) {
-        try {
-            SheetReader.refreshData()
-            kysLogger.info("Refreshed database")
-        } catch (e: KotlinNullPointerException) {
-            kysLogger.error("Error refreshing database", e)
-        }
-    }
-
     install(CallLogging)
 
     install(StatusPages) {
