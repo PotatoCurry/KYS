@@ -1,8 +1,8 @@
-# KYS
-![Build Status](https://img.shields.io/travis/PotatoCurry/KYS.svg)
-![Code Quality](https://img.shields.io/codacy/grade/e80c52878b2b4e40a4ac96cfac27d609.svg)
-![Issues](https://img.shields.io/github/issues/PotatoCurry/KYS.svg)
-![License](https://img.shields.io/github/license/PotatoCurry/KYS.svg)
+# KYS [![Clements Status](https://img.shields.io/badge/clements-stressful-%23004fa3.svg)](https://www.fortbendisd.com/chs)
+[![Build Status](https://img.shields.io/travis/PotatoCurry/KYS.svg)](https://travis-ci.org/PotatoCurry/KYS)
+[![Code Quality](https://img.shields.io/codacy/grade/e80c52878b2b4e40a4ac96cfac27d609.svg)](https://app.codacy.com/project/PotatoCurry/KYS/dashboard)
+[![Issues](https://img.shields.io/github/issues/PotatoCurry/KYS.svg)](https://github.com/PotatoCurry/KYS/issues)
+[![License](https://img.shields.io/github/license/PotatoCurry/KYS.svg)](LICENSE)
 
 Kotlin-based YES system for querying volunteer hours
 
