@@ -1,5 +1,5 @@
 var green = "#4CAF50";
-
+var red = "#D32F2F"
 
 function check(e){
     var x = e.value != "";
@@ -7,7 +7,7 @@ function check(e){
         e.style.borderColor = green;
     }
     else{
-        e.style.borderColor = "red";
+        e.style.borderColor = red;
     }
 }
 
@@ -17,7 +17,7 @@ function checknum(e){
         e.style.borderColor = green;
     }
     else{
-        e.style.borderColor = "red";
+        e.style.borderColor = red;
     }
     
 }
