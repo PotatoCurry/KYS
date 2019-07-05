@@ -16,6 +16,7 @@ import io.ktor.response.respond
 import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
 import io.ktor.routing.get
+import io.ktor.routing.post
 import io.ktor.routing.routing
 import io.ktor.server.netty.EngineMain
 import kotlinx.html.*
@@ -99,6 +100,10 @@ fun Application.module() {
             resource("/yeselite", "static/yeselite.html")
             resource("/volunteer-opportunities", "static/volunteer-opportunities.html")
             resource("/query", "static/query.html")
+        }
+
+        post("yeselite") {
+
         }
 
         get("/query/{number}/{json?}") {
