@@ -1,13 +1,5 @@
 var green = "#4CAF50";
-<<<<<<< HEAD
-<<<<<<< HEAD
 var red = "#D32F2F"
-=======
-
->>>>>>> 158dfb1... uh i hope this doesnt break anything
-=======
-var red = "#D32F2F"
->>>>>>> 3398675... yeselite page
 
 function check(e){
     var x = e.value != "";
@@ -15,15 +7,7 @@ function check(e){
         e.style.borderColor = green;
     }
     else{
-<<<<<<< HEAD
-<<<<<<< HEAD
         e.style.borderColor = red;
-=======
-        e.style.borderColor = "red";
->>>>>>> 158dfb1... uh i hope this doesnt break anything
-=======
-        e.style.borderColor = red;
->>>>>>> 3398675... yeselite page
     }
 }
 
@@ -33,15 +17,7 @@ function checknum(e){
         e.style.borderColor = green;
     }
     else{
-<<<<<<< HEAD
-<<<<<<< HEAD
         e.style.borderColor = red;
-=======
-        e.style.borderColor = "red";
->>>>>>> 158dfb1... uh i hope this doesnt break anything
-=======
-        e.style.borderColor = red;
->>>>>>> 3398675... yeselite page
     }
-    
+
 }
