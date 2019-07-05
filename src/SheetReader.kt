@@ -20,7 +20,7 @@ import java.security.GeneralSecurityException
 object SheetReader {
     private val JSON_FACTORY = JacksonFactory.getDefaultInstance()
     private val SCOPES = listOf(SheetsScopes.SPREADSHEETS_READONLY)
-    private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json"
+    private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json" // TODO: Capitalize
 
     /** Reinitialize [Students] database with updated values. */
     fun refreshData() {
@@ -29,6 +29,7 @@ object SheetReader {
             kysLogger.error("Spreadsheet response is null")
             return
         }
+        // TODO: Add delay and see what happens if I view in the middle of refresh - maybe have split this into different method and call it from runBlocking
         Students.clear()
         values.forEach { row ->
             val number = (Integer.parseInt(row[0].toString()) - 2424) / 5
@@ -67,18 +68,6 @@ object SheetReader {
         kysLogger.info("Refreshed student database")
     }
 
-    @Throws(IOException::class)
-    private fun getCredentials(HTTP_TRANSPORT: NetHttpTransport): Credential {
-        val clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, FileReader(CREDENTIALS_FILE_PATH))
-        kysLogger.debug("Loaded Google credentials")
-        val flow = GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-            .setDataStoreFactory(FileDataStoreFactory(File("resources")))
-            .setAccessType("offline")
-            .build()
-        val receiver = LocalServerReceiver.Builder().setPort(8888).build()
-        return AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
-    }
-
     @Throws(IOException::class, GeneralSecurityException::class)
     private fun scrapeData(): List<List<Any>>? {
         val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
@@ -98,5 +87,15 @@ object SheetReader {
         return response.getValues()
     }
 
-
+    @Throws(IOException::class)
+    private fun getCredentials(HTTP_TRANSPORT: NetHttpTransport): Credential {
+        val clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, FileReader(CREDENTIALS_FILE_PATH))
+        kysLogger.debug("Loaded Google credentials")
+        val flow = GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
+            .setDataStoreFactory(FileDataStoreFactory(File("resources")))
+            .setAccessType("offline")
+            .build()
+        val receiver = LocalServerReceiver.Builder().setPort(8888).build()
+        return AuthorizationCodeInstalledApp(flow, receiver).authorize("user")
+    }
 }
