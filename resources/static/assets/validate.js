@@ -1,5 +1,9 @@
 var green = "#4CAF50";
+<<<<<<< HEAD
 var red = "#D32F2F"
+=======
+
+>>>>>>> 158dfb1... uh i hope this doesnt break anything
 
 function check(e){
     var x = e.value != "";
@@ -7,7 +11,11 @@ function check(e){
         e.style.borderColor = green;
     }
     else{
+<<<<<<< HEAD
         e.style.borderColor = red;
+=======
+        e.style.borderColor = "red";
+>>>>>>> 158dfb1... uh i hope this doesnt break anything
     }
 }
 
@@ -17,7 +25,11 @@ function checknum(e){
         e.style.borderColor = green;
     }
     else{
+<<<<<<< HEAD
         e.style.borderColor = red;
+=======
+        e.style.borderColor = "red";
+>>>>>>> 158dfb1... uh i hope this doesnt break anything
     }
     
 }
