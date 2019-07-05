@@ -1,12 +1,6 @@
 package io.github.potatocurry.kys
 
 import com.sendgrid.*
-import io.ktor.client.HttpClient
-import io.ktor.client.request.post
-import io.ktor.http.ContentType
-import io.ktor.http.contentType
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.io.IOException
 
 object EmailHandler {
