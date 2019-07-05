@@ -1,1 +1,2 @@
-web: ./credentials.sh && java -jar build/libs/KYS-all.jar -port=$PORT
+release: ./credentials.sh
+web: java -jar build/libs/KYS-all.jar -port=$PORT
