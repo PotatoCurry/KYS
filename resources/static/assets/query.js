@@ -5,12 +5,12 @@
                document.getElementById("submit").click();
            }
           });
-          document.getElementById('submit').onclick = function() {
-            var temp = document.getElementById('id').value;
-            if(temp == "" || temp > 999999 || temp < 100000){
+          document.getElementById("submit").onclick = function() {
+            var temp = document.getElementById("id").value;
+            if(temp === "" || temp > 999999 || temp < 100000){
               alert("please enter a valid id");
             }else{
-              location.href = '/query/' + document.getElementById('id').value;
+              location.href = "/query/" + document.getElementById("id").value;
             }
           
           };

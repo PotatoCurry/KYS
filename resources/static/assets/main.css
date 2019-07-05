@@ -131,6 +131,12 @@ h2{
   margin-left: 3px;
   padding: 2px;
 }
+input{
+  transition: 0.5s;
+  border: 1px solid grey;
+}
+input:focus {outline: none; }
+
 input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
@@ -182,4 +188,9 @@ input[type="number"] {
 }
 .rounded:hover{
   border-radius: 10%;
+}
+
+.red{
+  color: #D32F2F;
+  display: inline;
 }
