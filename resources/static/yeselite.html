@@ -31,22 +31,22 @@
         <p>
 The Clements Y.E.S. Office sometimes receives calls from organizations that need urgent staffing of volunteers so that the planned event can be run. It is very important that we respond to these calls. If you are willing to step in to offer your help in short notice, we invite you to join YESeLITe.</p>
         <p>By submitting the form below, you will be added to the Y.E.S. Program's YESeLITe mailing list. You'll be notified via email the volunteer calls and YES updates.</p>
-        
+
         <p class= "big">YESeLITe</p>
         <p style="font-size: 15px" class="red">* is required</p>
         <br><br>
-        <form action="yeselite">
+        <form method="post">
 
-          First Name:<p class="red">* </p> <input type="text" name="firstname" oninput="check(this)" required>  
+          First Name:<p class="red">* </p> <input type="text" name="firstName" required oninput="check(this)">
           <br><br>
-          Last Name: <p class="red">* </p><input type="text" name="lastname" required oninput="check(this)">
+          Last Name: <p class="red">* </p><input type="text" name="lastName" required oninput="check(this)">
           <br><br>
           Email: <p class="red">* </p><input type="email" name="email" required oninput="check(this)">
           <br><br>
-          Student ID: <p class="red">* </p><input type="number" name="id" required oninput="checknum(this)">
+          Student ID: <p class="red">* </p><input type="number" name="id" required oninput="checkNum(this)">
           <br><br>
           Class Of:
-          <select name="year">
+          <select name="class">
             <option value="2020">2020</option>
             <option value="2021">2021</option>
             <option value="2022">2022</option>
@@ -54,7 +54,7 @@ The Clements Y.E.S. Office sometimes receives calls from organizations that need
             <option value="2024">2024</option>
           </select><p class="red">*</p>
           <br><br>
-          Phone Number (optional):  <input type="tel"name="phone">
+          Phone Number (optional):  <input type="tel" name="phone">
           <br><br>
           <input type="submit" class = "button">
         </form>
