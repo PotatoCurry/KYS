@@ -59,6 +59,7 @@ fun Application.module() {
                 head {
                     title("KYS | Internal Server Error")
                     meta("viewport", "width=device-width, initial-scale=1")
+                    link("/assets/main.css", "stylesheet")
                 }
                 body {
                     h1 { +"500 Internal Server Error" }
@@ -151,6 +152,7 @@ fun Application.module() {
                     head {
                         title("KYS | ${student.firstName} ${student.lastName}")
                         meta("viewport", "width=device-width, initial-scale=1")
+                        link("/assets/main.css", "stylesheet")
                     }
                     body {
                         h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
