@@ -5,7 +5,8 @@ import com.sendgrid.helpers.mail.Mail
 import com.sendgrid.helpers.mail.objects.Email
 import com.sendgrid.helpers.mail.objects.Personalization
 import io.ktor.http.Parameters
-import java.io.IOException
+import kotlinx.io.errors.IOException
+import org.apache.http.HttpStatus
 
 object EmailHandler {
     private val sendGrid = SendGrid(System.getenv("KYS_SENDGRID_KEY"))
@@ -43,13 +44,17 @@ object EmailHandler {
     */
 
     private fun Mail.send(): Boolean {
-        val request = Request()
         return try {
+            val request = Request()
             request.method = Method.POST
             request.endpoint = "mail/send"
             request.body = this.build()
-            sendGrid.api(request)
-            true
+
+            val status = sendGrid.api(request).statusCode
+            if (status != HttpStatus.SC_ACCEPTED)
+                throw IOException("Received status code $status when sending email")
+            else
+                true
         } catch (e: IOException) {
             kysLogger.error("Error sending email", e)
             false

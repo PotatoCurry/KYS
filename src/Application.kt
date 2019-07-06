@@ -112,11 +112,11 @@ fun Application.module() {
             val registration = call.receiveParameters()
             if (validateRegistration(registration)) {
                 kysLogger.trace("Registration data validated")
-                call.respond(HttpStatusCode.Accepted)
+                call.respond(HttpStatusCode.Accepted, "Registration data validated")
                 EmailHandler.sendRegistration(registration)
             } else {
                 kysLogger.warn("Invalid registration data")
-                call.respond(HttpStatusCode.UnprocessableEntity)
+                call.respond(HttpStatusCode.UnprocessableEntity, "Invalid registration data")
             }
         }
 
