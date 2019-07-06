@@ -21,7 +21,7 @@ object Students {
     }
 
     /** Returns a random [Student] number. */
-    fun getRandomNumber(): Int {
+    fun getRandom(): Int {
         return students.keys.random()
     }
 }

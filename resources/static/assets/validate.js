@@ -11,7 +11,7 @@ function check(e){
     }
 }
 
-function checkNum(e){
+function checkNum(e) {
     var x = e.value > 99999 && e.value <1000000; // is valid id
     if(x){
         e.style.borderColor = green;
@@ -19,5 +19,4 @@ function checkNum(e){
     else{
         e.style.borderColor = red;
     }
-
 }
