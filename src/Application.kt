@@ -9,10 +9,12 @@ import io.ktor.features.*
 import io.ktor.html.respondHtml
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.Parameters
 import io.ktor.http.content.resource
 import io.ktor.http.content.resources
 import io.ktor.http.content.static
 import io.ktor.jackson.jackson
+import io.ktor.request.receiveParameters
 import io.ktor.response.respond
 import io.ktor.response.respondText
 import io.ktor.routing.get
@@ -105,7 +107,13 @@ fun Application.module() {
         }
 
         post("yeselite") {
-
+            val registration = call.receiveParameters()
+            if (validateRegistration(registration)) {
+                kysLogger.trace("Registration data validated")
+                EmailHandler.sendRegistration(registration)
+            } else {
+                kysLogger.warn("Invalid registration data")
+            }
         }
 
         route("query/{number}") {
@@ -176,5 +184,20 @@ fun Application.module() {
 //                call.respond("you win!")
 //            }
 //        }
+    }
+}
+
+// TODO: Add HTML/JS escaping to avoid attacks
+fun validateRegistration(registration: Parameters): Boolean {
+    return try {
+        require(registration.contains("firstName"))
+        require(registration.contains("lastName"))
+        require(registration.contains("email"))
+        require(registration.contains("id"))
+        require(registration.contains("class"))
+        require(registration.contains("phone"))
+        true
+    } catch (e: IllegalArgumentException) {
+        false
     }
 }
