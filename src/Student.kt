@@ -1,5 +1,7 @@
 package io.github.potatocurry.kys
 
+val students = HashMap<Int, Student>()
+
 /** Holds student information. */
 class Student(val firstName: String, val lastName: String, val gradClass: Int) {
     private val activities = mutableListOf<VolunteerActivity>()

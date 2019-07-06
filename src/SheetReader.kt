@@ -16,13 +16,13 @@ import java.io.FileReader
 import java.io.IOException
 import java.security.GeneralSecurityException
 
-/** Handles scraping [Student] data and putting it in [Students] database. */
+/** Handles scraping [Student] data and putting it in [students] database. */
 object SheetReader {
     private val JSON_FACTORY = JacksonFactory.getDefaultInstance()
     private val SCOPES = listOf(SheetsScopes.SPREADSHEETS_READONLY)
     private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json" // TODO: Capitalize
 
-    /** Reinitialize [Students] database with updated values. */
+    /** Reinitialize [students] database with updated values. */
     fun refreshData() {
         val values = scrapeData()
         if (values == null) {
@@ -30,7 +30,7 @@ object SheetReader {
             return
         }
         // TODO: Add delay and see what happens if I view in the middle of refresh - maybe have split this into different method and call it from runBlocking
-        Students.clear()
+        students.clear()
         values.forEach { row ->
             val number = (Integer.parseInt(row[0].toString()) - 2424) / 5
             val firstName = row[1].toString().trim()
@@ -52,18 +52,21 @@ object SheetReader {
                 ""
             }
 
-            val student = Students[number] ?: Students.add(number, Student(firstName, lastName, gradClass))
-            student.enterActivity(
-                VolunteerActivity(
-                    agency,
-                    startDate,
-                    endDate,
-                    hours,
-                    extraHours,
-                    summer,
-                    description
+            students.getOrPut(number) {
+                Student(firstName, lastName, gradClass)
+            }.apply {
+                enterActivity(
+                    VolunteerActivity(
+                        agency,
+                        startDate,
+                        endDate,
+                        hours,
+                        extraHours,
+                        summer,
+                        description
+                    )
                 )
-            )
+            }
         }
         kysLogger.info("Refreshed student database")
     }

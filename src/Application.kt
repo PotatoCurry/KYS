@@ -128,16 +128,16 @@ fun Application.module() {
 
                 val student = when {
                     number == "random" -> {
-                        val random = Students.getRandom()
-                        kysLogger.trace("Chose random number {}", random)
-                        Students[random]
+                        val random = students.entries.random()
+                        kysLogger.trace("Chose random number {}", random.key)
+                        random.value
                     }
                     number?.toIntOrNull() == null -> {
                         call.respondText("Error parsing ID $number")
                         kysLogger.trace("Error parsing ID {}", number)
                         return@intercept finish()
                     }
-                    else -> Students[number.toInt()]
+                    else -> students[number.toInt()]
                 }
 
                 if (student == null) {
@@ -192,6 +192,7 @@ fun Application.module() {
     }
 }
 
+/** Ensure the [registration] parameters have all the necessary data. */
 fun validateRegistration(registration: Parameters): Boolean {
     return try {
         require(registration.contains("firstName"))
