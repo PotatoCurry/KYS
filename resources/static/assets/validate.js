@@ -1,22 +1,12 @@
 var green = "#4CAF50";
 var red = "#D32F2F";
 
-function check(e){
+function check(e) {
     var x = e.value !== "";
-    if(x){
-        e.style.borderColor = green;
-    }
-    else{
-        e.style.borderColor = red;
-    }
+    e.style.borderColor = x ? green : red;
 }
 
 function checkNum(e) {
-    var x = e.value > 99999 && e.value <1000000; // is valid id
-    if(x){
-        e.style.borderColor = green;
-    }
-    else{
-        e.style.borderColor = red;
-    }
+    var x = e.value > 99999 && e.value < 1000000; // is valid id
+    e.style.borderColor = x ? green : red;
 }
