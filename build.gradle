@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'io.github.potatocurry'
-mainClassName = 'io.ktor.server.netty.EngineMain'
+mainClassName = 'io.github.potatocurry.kys.ApplicationKt'
 
 sourceSets {
     main.kotlin.srcDirs = ['src']
