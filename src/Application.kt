@@ -51,6 +51,7 @@ fun Application.module() {
     }
 
     install(StatusPages) {
+        // TODO: Make this more substantial
         status(HttpStatusCode.NotFound) {
             call.respond(HttpStatusCode.NotFound, "${it.value} ${it.description}")
         }
@@ -111,9 +112,11 @@ fun Application.module() {
             val registration = call.receiveParameters()
             if (validateRegistration(registration)) {
                 kysLogger.trace("Registration data validated")
+                call.respond(HttpStatusCode.Accepted)
                 EmailHandler.sendRegistration(registration)
             } else {
                 kysLogger.warn("Invalid registration data")
+                call.respond(HttpStatusCode.UnprocessableEntity)
             }
         }
 
