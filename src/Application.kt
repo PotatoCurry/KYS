@@ -192,7 +192,6 @@ fun Application.module() {
     }
 }
 
-// TODO: Add HTML/JS escaping to avoid attacks
 fun validateRegistration(registration: Parameters): Boolean {
     return try {
         require(registration.contains("firstName"))

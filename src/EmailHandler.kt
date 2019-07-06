@@ -52,9 +52,8 @@ object EmailHandler {
 
             val status = sendGrid.api(request).statusCode
             if (status != HttpStatus.SC_ACCEPTED)
-                throw IOException("Received status code $status when sending email")
-            else
-                true
+                throw IOException("Email not accepted - received status code $status")
+            true
         } catch (e: IOException) {
             kysLogger.error("Error sending email", e)
             false
