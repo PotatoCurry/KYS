@@ -37,7 +37,7 @@ fun main(args: Array<String>) = EngineMain.main(args)
 /** Main web server listening for requests. */
 fun Application.module() {
     /** Instantiate database and refresh it hourly. */
-    SheetReader.refreshData() // TODO: Different method for instantiating and refreshing?
+    SheetReader.refreshData()
     fixedRateTimer("UpdateDatabase", true, 3600000, 3600000) {
         SheetReader.refreshData()
     }
@@ -159,23 +159,25 @@ fun Application.module() {
                     }
                     body {
                         h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
-                        span { +"${student.totalHours} Total Hours" }
-                        if (student.totalExtraHours > 0.0)
-                            span { +" | ${student.totalExtraHours} Total Extra Hours" }
+                        if (student.totalExtraHours == 0.0)
+                            p { +"${student.totalHours} total hours" }
+                        else
+                            p { +"${student.totalHours} total hours | ${student.totalExtraHours} total extra hours" }
                         h2 { +"Volunteering Records" }
-                        student.records.forEach { va ->
-                            if (va.endDate == "")
-                                h3 { +"${va.agency}: ${va.startDate}" }
+                        student.records.forEach { volunteerActivity ->
+                            if (volunteerActivity.endDate == "")
+                                h3 { +"${volunteerActivity.agency}: ${volunteerActivity.startDate}" }
                             else
-                                h3 { +"${va.agency}: ${va.startDate} - ${va.endDate}" }
-                            span { +"${va.hours} Hours" }
-                            if (va.extraHours > 0.0)
-                                span { +" | ${va.extraHours} Extra Hours" }
-                            p { +va.description }
+                                h3 { +"${volunteerActivity.agency}: ${volunteerActivity.startDate} - ${volunteerActivity.endDate}" }
+                            span { +"${volunteerActivity.hours} Hours" }
+                            if (volunteerActivity.extraHours == 0.0)
+                                p { +"${volunteerActivity.hours} hours" }
+                            else
+                                p { +"${volunteerActivity.hours} hours | ${volunteerActivity.extraHours} extra hours" }
+                            p { +volunteerActivity.description }
                         }
                     }
                 }
-                kysLogger.trace("Responded with student {}", InputType.number)
             }
 
             get("json") {
@@ -192,8 +194,7 @@ fun Application.module() {
     }
 }
 
-/** Ensure the [registration] parameters have all the necessary data. */
-fun validateRegistration(registration: Parameters): Boolean {
+private fun validateRegistration(registration: Parameters): Boolean {
     return try {
         require(registration.contains("firstName"))
         require(registration.contains("lastName"))

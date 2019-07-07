@@ -13,35 +13,52 @@ object EmailHandler {
 
     fun sendRegistration(form: Parameters) {
         val mail = Mail()
-        mail.setFrom(Email("from@example.com"))
+        mail.setFrom(Email("yeselite@chsyes.info", "Kotlin YES System"))
         mail.setTemplateId("d-676462b81ff345b79dcf000f3c306df5")
 
-        val name = "${form["firstName"]} ${form["lastName"]}"
         val personalization = Personalization()
-        personalization.addDynamicTemplateData("subject", "New YESeLITe registration - $name")
-        personalization.addDynamicTemplateData("name", name)
-        personalization.addDynamicTemplateData("email", form["email"])
-        personalization.addDynamicTemplateData("id", form["id"])
-        personalization.addDynamicTemplateData("class", form["class"])
-        personalization.addDynamicTemplateData("phone",
-            if (form["phone"].isNullOrBlank())
-                "Not provided"
-            else
-                form["phone"]
-        )
+        with (form) {
+            personalization.addDynamicTemplateData("firstName", get("firstName"))
+            personalization.addDynamicTemplateData("lastName", get("lastName"))
+            personalization.addDynamicTemplateData("email", get("email"))
+            personalization.addDynamicTemplateData("id", get("id"))
+            personalization.addDynamicTemplateData("class", get("class"))
+            personalization.addDynamicTemplateData("phone",
+                if (form["phone"].isNullOrBlank())
+                    "Not provided"
+                else
+                    get("phone")
+            )
+        }
         personalization.addTo(Email("damianlall@hotmail.com"))
         mail.addPersonalization(personalization)
 
         if (mail.send())
-            kysLogger.debug("Sent YESeLITe registration email for {}", name)
+            kysLogger.debug("Sent YESeLITe registration email for {}", form["id"])
     }
 
-    /*
-    Not yet implemented
-    fun sendUpdateNotification() {
+    fun sendRecordUpdate(volunteerActivity: VolunteerActivity) {
+        val mail = Mail()
+        mail.setFrom(Email("notifications@chsyes.info", "Kotlin YES System"))
+        mail.setTemplateId("d-7b467aaa69f748d0b9275a0fe01703e2")
 
+        val personalization = Personalization()
+        with (volunteerActivity) {
+            personalization.addDynamicTemplateData("agency", agency)
+            personalization.addDynamicTemplateData("startDate", startDate)
+            personalization.addDynamicTemplateData("endDate", endDate)
+            personalization.addDynamicTemplateData("hours", hours)
+            personalization.addDynamicTemplateData("extraHours", extraHours)
+            personalization.addDynamicTemplateData("isSummer", isSummer)
+            personalization.addDynamicTemplateData("description", extraHours)
+        }
+        val recipient = Email("damianlall@hotmail.com")
+        personalization.addTo(recipient)
+        mail.addPersonalization(personalization)
+
+        if (mail.send())
+            kysLogger.debug("Sent record update email to {}", recipient.email)
     }
-    */
 
     private fun Mail.send(): Boolean {
         return try {

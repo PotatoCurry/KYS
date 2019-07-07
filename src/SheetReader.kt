@@ -18,20 +18,21 @@ import java.security.GeneralSecurityException
 
 /** Handles scraping [Student] data and putting it in [students] database. */
 object SheetReader {
+    private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json" // TODO: Capitalize
     private val JSON_FACTORY = JacksonFactory.getDefaultInstance()
     private val SCOPES = listOf(SheetsScopes.SPREADSHEETS_READONLY)
-    private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json" // TODO: Capitalize
+    private var lastRow = 0
 
-    /** Reinitialize [students] database with updated values. */
+    /** Update [students] database. */
     fun refreshData() {
         val values = scrapeData()
         if (values == null) {
             kysLogger.error("Spreadsheet response is null")
             return
         }
-        // TODO: Add delay and see what happens if I view in the middle of refresh - maybe have split this into different method and call it from runBlocking
+        // TODO: Add delay and see what happens if I view in the middle of refresh
         students.clear()
-        values.forEach { row ->
+        values.subList(lastRow, values.size).forEach { row ->
             val number = (Integer.parseInt(row[0].toString()) - 2424) / 5
             val firstName = row[1].toString().trim()
             val lastName = row[2].toString().trim()
@@ -65,9 +66,13 @@ object SheetReader {
                         summer,
                         description
                     )
-                )
+                ).also {
+                    if (lastRow != 0 && 1 == 5) // Not yet activated
+                        EmailHandler.sendRecordUpdate(it)
+                }
             }
         }
+        lastRow = values.size
         kysLogger.info("Refreshed student database")
     }
 
@@ -79,7 +84,7 @@ object SheetReader {
             kysLogger.error("KYS_SPREADSHEET environmental variable not set")
             return null
         }
-        val range = "Sheet1!A2:K"
+        val range = "Sheet1!A2:K" // TODO: Only read from lastRow + 2
         val service = Sheets.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport))
             .setApplicationName("Kotlin YES System")
             .build()
