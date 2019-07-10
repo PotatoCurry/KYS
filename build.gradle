@@ -36,7 +36,7 @@ dependencies {
     implementation "io.sentry:sentry-logback:1.7.23"
 }
 
-shadowJar {
+jar {
     manifest {
         attributes 'Main-Class': mainClassName
     }
