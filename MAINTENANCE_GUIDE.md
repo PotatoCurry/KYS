@@ -58,8 +58,12 @@ Preferably not the latter.
 You also have access to these logs.
 They’re probably useful if you still have yet to find the problem.
 
-### Sentry
-*TODO*
+### Logging
+KYS uses Logback to handle logging.
+Logs are categorized by importance and can be filtered through configuration of the [logback.xml](resources/logback.xml) file.
+Logs of level WARN or ERROR are reported to Sentry, which provides a dashboard of issues.
+Sentry can provide notifications upon receiving such events, along with context that can help you narrow down the issue.
+To gain a deeper insight in to what caused the problem, you can consult the previously discussed Heroku logs.
 
 ## Help! Nothing works!
 Too bad.
