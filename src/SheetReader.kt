@@ -18,7 +18,7 @@ import java.security.GeneralSecurityException
 
 /** Handles scraping [Student] data and putting it in [students] database. */
 object SheetReader {
-    private const val CREDENTIALS_FILE_PATH = "resources/KYS_Credentials.json" // TODO: Capitalize
+    private const val CREDENTIALS_FILE_PATH = "resources/KYS_CREDENTIALS.json"
     private val JSON_FACTORY = JacksonFactory.getDefaultInstance()
     private val SCOPES = listOf(SheetsScopes.SPREADSHEETS_READONLY)
     private var lastRow = 0
