@@ -5,9 +5,11 @@ import io.ktor.application.Application
 import io.ktor.application.ApplicationCallPipeline
 import io.ktor.application.call
 import io.ktor.application.install
-import io.ktor.features.*
+import io.ktor.features.CORS
+import io.ktor.features.CallLogging
+import io.ktor.features.ContentNegotiation
+import io.ktor.features.StatusPages
 import io.ktor.html.respondHtml
-import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.Parameters
 import io.ktor.http.content.resource
@@ -181,7 +183,7 @@ fun Application.module() {
             }
 
             get("json") {
-                val student: Student = call.attributes[AttributeKey("student")]
+                val student = call.attributes[studentKey]
                 call.respond(student)
             }
         }
