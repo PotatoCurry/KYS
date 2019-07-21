@@ -1,6 +1,8 @@
 package io.github.potatocurry.kys
 
-import com.sendgrid.*
+import com.sendgrid.Method
+import com.sendgrid.Request
+import com.sendgrid.SendGrid
 import com.sendgrid.helpers.mail.Mail
 import com.sendgrid.helpers.mail.objects.Email
 import com.sendgrid.helpers.mail.objects.Personalization
@@ -50,7 +52,7 @@ object EmailHandler {
             personalization.addDynamicTemplateData("hours", hours)
             personalization.addDynamicTemplateData("extraHours", extraHours)
             personalization.addDynamicTemplateData("isSummer", isSummer)
-            personalization.addDynamicTemplateData("description", extraHours)
+            personalization.addDynamicTemplateData("description", description)
         }
         val recipient = Email("damianlall@hotmail.com")
         personalization.addTo(recipient)
