@@ -125,7 +125,7 @@ fun Application.module() {
         route("query/{number}") {
             val studentKey = AttributeKey<Student>("student")
 
-            intercept(ApplicationCallPipeline.Call) {
+            intercept(ApplicationCallPipeline.Setup) {
                 val number = call.parameters["number"]
 
                 val student = when {
