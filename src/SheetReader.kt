@@ -30,8 +30,6 @@ object SheetReader {
             kysLogger.error("Spreadsheet response is null")
             return
         }
-        // TODO: Add delay and see what happens if I view in the middle of refresh
-        students.clear()
         values.subList(lastRow, values.size).forEach { row ->
             val number = (Integer.parseInt(row[0].toString()) - 2424) / 5
             val firstName = row[1].toString().trim()
