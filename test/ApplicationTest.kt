@@ -4,7 +4,10 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 /** Basic tests to ensure database is operational and web server is responsive. */
 class ApplicationTest {
@@ -33,18 +36,14 @@ class ApplicationTest {
                 val content = response.content
                 assertNotNull(content)
                 assertTrue(content.contains("Damian Lall"))
-                assertNotEquals("Student with ID 625783 not found", content)
-                assertNotEquals("Error parsing ID 625783", content)
             }
             handleRequest(HttpMethod.Get, "/query/000000").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
+                assertEquals(HttpStatusCode.NotFound, response.status())
                 assertNotNull(response.content)
-                assertEquals("Student with ID 000000 not found", response.content)
             }
             handleRequest(HttpMethod.Get, "/query/abc").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
+                assertEquals(HttpStatusCode.BadRequest, response.status())
                 assertNotNull(response.content)
-                assertEquals("Error parsing ID abc", response.content)
             }
         }
     }
