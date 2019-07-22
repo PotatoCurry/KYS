@@ -114,11 +114,11 @@ fun Application.module() {
             val registration = call.receiveParameters()
             if (validateRegistration(registration)) {
                 kysLogger.trace("Registration data validated")
-                call.respond(HttpStatusCode.Accepted, "Registration data validated")
+                call.respondText("Registration data validated", status = HttpStatusCode.Accepted)
                 EmailHandler.sendRegistration(registration)
             } else {
                 kysLogger.warn("Invalid registration data")
-                call.respond(HttpStatusCode.UnprocessableEntity, "Invalid registration data")
+                call.respondText("Invalid registration data", status = HttpStatusCode.UnprocessableEntity)
             }
         }
 
@@ -135,7 +135,7 @@ fun Application.module() {
                         random.value
                     }
                     number?.toIntOrNull() == null -> {
-                        call.respondText("Error parsing ID $number")
+                        call.respondText("Error parsing ID $number", status = HttpStatusCode.BadRequest)
                         kysLogger.trace("Error parsing ID {}", number)
                         return@intercept finish()
                     }
@@ -143,7 +143,7 @@ fun Application.module() {
                 }
 
                 if (student == null) {
-                    call.respondText("Student with ID $number not found")
+                    call.respondText("Student with ID $number not found", status = HttpStatusCode.NotFound)
                     return@intercept finish()
                 }
                 MDC.put("id", number)
