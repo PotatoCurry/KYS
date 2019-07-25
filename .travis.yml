@@ -1,9 +1,7 @@
 os: linux
 language: java
 before_install:
-  - openssl aes-256-cbc -K $KYS_CREDENTIALS_KEY -iv $KYS_CREDENTIALS_IV
-    -in resources/credentials.tar.enc -out resources/credentials.tar -d
-  - tar xvf resources/credentials.tar
+  - ./credentials.sh
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
