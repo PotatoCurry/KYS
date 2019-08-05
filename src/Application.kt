@@ -161,21 +161,18 @@ fun Application.module() {
                     }
                     body {
                         h1 { +"${student.firstName} ${student.lastName} (${student.gradClass})" }
-                        if (student.totalExtraHours == 0.0)
-                            p { +"${student.totalHours} total hours" }
-                        else
-                            p { +"${student.totalHours} total hours | ${student.totalExtraHours} total extra hours" }
+                        p { +"${student.totalHours} hours" }
+                        if (student.totalExtraHours > 0.0)
+                            p { +"${student.totalExtraHours} extra hours" }
                         h2 { +"Volunteering Records" }
                         student.records.forEach { volunteerActivity ->
                             if (volunteerActivity.endDate == "")
                                 h3 { +"${volunteerActivity.agency}: ${volunteerActivity.startDate}" }
                             else
                                 h3 { +"${volunteerActivity.agency}: ${volunteerActivity.startDate} - ${volunteerActivity.endDate}" }
-                            span { +"${volunteerActivity.hours} Hours" }
-                            if (volunteerActivity.extraHours == 0.0)
-                                p { +"${volunteerActivity.hours} hours" }
-                            else
-                                p { +"${volunteerActivity.hours} hours | ${volunteerActivity.extraHours} extra hours" }
+                            p { +"${volunteerActivity.hours} hours" }
+                            if (volunteerActivity.extraHours > 0.0)
+                                p { +"${volunteerActivity.extraHours} extra hours" }
                             p { +volunteerActivity.description }
                         }
                     }
